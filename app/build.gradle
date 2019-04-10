@@ -6,6 +6,8 @@ android {
         applicationId "com.general.rentacalculator"
         minSdkVersion 19
         targetSdkVersion 28
+        compileSdkVersion "28"
+        buildToolsVersion "28.0.3"
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
