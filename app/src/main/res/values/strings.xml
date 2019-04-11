@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Renta Calculator</string>
+    <string name="paso1_3">Paso 1 de 3</string>
+    <string name="salarioBrutoHint">Introducir salario bruto</string>
+    <string name="retencionHint">Introducir porcentaje de retención</string>
+    <string name="retenidoHint">Introducir cantidad retenida</string>
 </resources>

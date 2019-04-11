@@ -1,8 +1,23 @@
 package com.general.rentacalculator.services;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class ConfigurationHolder {
+
+    public static String getProperty(String key, Context context) throws IOException {
+        Properties properties = new Properties();
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = assetManager.open("application-constants.properties");
+        properties.load(inputStream);
+        return properties.getProperty(key);
+    }
 
     /**
      * Get list of taxes of given administration
@@ -52,7 +67,7 @@ public class ConfigurationHolder {
         return 1;
     }
 
-    public static double getGeographicMobility(boolean mobility){
+    private static double getGeographicMobility(boolean mobility){
         if(mobility){
             // TODO
             return 1;
