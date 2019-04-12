@@ -67,7 +67,7 @@ public class ConfigurationHolder {
         return 1;
     }
 
-    private static double getGeographicMobility(boolean mobility){
+    protected static double getGeographicMobility(boolean mobility){
         if(mobility){
             // TODO
             return 1;
