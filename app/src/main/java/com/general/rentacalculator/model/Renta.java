@@ -37,101 +37,6 @@ public class Renta {
     // gravamen
     private double gravamen;
 
-    // extraordinary getters and setters
-
-    /**
-     * Calculates Retencion from Salario Bruto and Retencion as percentage
-     *
-     * @param salarioBruto
-     * @param retencion    as percentage
-     */
-    public void setRetencion(double retencion, double salarioBruto) {
-        this.retenido = salarioBruto * retencion / 100;
-    }
-
-    /**
-     * Calculates Cotizado from Contract type
-     * @param valorImpositivoDebidoTipoContrato value in function of type of contract at ConfigurationHolder
-     * @param valorImpositivoContingenciasComunes value from ConfigurationHolder
-     * @param valorImpositivoFormacion value from ConfigurationHolder
-     * @param salarioBruto
-     * @param exentos optional
-     * @param horasExtraOrdinarias optional
-     * @param valorCotizacionHorasExtraOrdinarias as percentage mandatory if horasExtraOrdinarias present or else throws MissingMandatoryValuesException
-     * @param horasExtraFuerza optional
-     * @param valorCotizacionHorasExtraFuerza as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
-     * @throws MissingMandatoryValuesException
-     */
-    public void setContrato(double valorImpositivoDebidoTipoContrato,
-                            double valorImpositivoContingenciasComunes,
-                            double valorImpositivoFormacion, double salarioBruto, double exentos,
-                            int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
-                            int horasExtraFuerza, double valorCotizacionHorasExtraFuerza) throws MissingMandatoryValuesException {
-        double cotizacion = valorImpositivoDebidoTipoContrato + valorImpositivoContingenciasComunes
-                + valorImpositivoFormacion;
-        this.setCotizacion(cotizacion, salarioBruto, exentos, horasExtraOrdinarias,
-                valorCotizacionHorasExtraOrdinarias, horasExtraFuerza,
-                valorCotizacionHorasExtraFuerza);
-
-    }
-
-    /**
-     * Calculates Cotizado from Cotizacion percentage
-     * @param cotizacion as percentage
-     * @param salarioBruto
-     * @param exentos optional
-     * @param horasExtraOrdinarias optional
-     * @param valorCotizacionHorasExtraOrdinarias as percentage mandatory if horasExtraOrdinarias present or else throws MissingMandatoryValuesException
-     * @param horasExtraFuerza optional
-     * @param valorCotizacionHorasExtraFuerza as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
-     */
-    public void setCotizacion(double cotizacion, double salarioBruto, double exentos,
-                              int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
-                              int horasExtraFuerza, double valorCotizacionHorasExtraFuerza)throws MissingMandatoryValuesException {
-        if(valorCotizacionHorasExtraOrdinarias == 0 && horasExtraOrdinarias > 0 ) {
-            throw new MissingMandatoryValuesException("Regular overtime setted but contribution value is 0");
-        }else if(valorCotizacionHorasExtraFuerza==0&& horasExtraFuerza>0){
-            throw new MissingMandatoryValuesException("Force majeur time setted but contribution value is 0");
-        }
-        this.cotizado = ((salarioBruto + exentos) * cotizacion / 100)
-                + (horasExtraOrdinarias * valorCotizacionHorasExtraOrdinarias / 100)
-                + (horasExtraFuerza * valorCotizacionHorasExtraFuerza / 100);
-    }
-
-    /**
-     * Calculates all three interests: gross, net and retained from gross and net
-     * @param interesesBrutos
-     * @param interesesNetos
-     */
-    public void setInteresesBrutosAndNetos(double interesesBrutos, double interesesNetos){
-        this.interesesBrutos = interesesBrutos;
-        this.interesesNetos = interesesNetos;
-        this.interesesRetenidos = interesesBrutos - interesesNetos;
-}
-
-    /**
-     * Calculates all three interests: gross, net and retained from gross and retained
-     * @param interesesBrutos
-     * @param interesesRetenidos
-     */
-    public void setInteresesBrutosAndRetenidos(double interesesBrutos, double interesesRetenidos){
-        this.interesesBrutos = interesesBrutos;
-        this.interesesNetos = interesesBrutos - interesesRetenidos;
-        this.interesesRetenidos = interesesRetenidos;
-    }
-
-    /**
-     * Calculates all three interests: gross, net and retained from net and retained
-     * @param interesesNetos
-     * @param interesesRetenidos
-     */
-    public void setInteresesNetosAndRetenidos(double interesesNetos, double interesesRetenidos){
-    this.interesesBrutos = interesesNetos + interesesRetenidos;
-    this.interesesNetos = interesesNetos;
-    this.interesesRetenidos = interesesRetenidos;
-}
-
-    // usual getters and setters
     public double getSalarioBruto() {
         return salarioBruto;
     }
@@ -294,5 +199,17 @@ public class Renta {
 
     public double getInteresesRetenidos() {
         return interesesRetenidos;
+    }
+
+    public void setInteresesBrutos(double interesesBrutos) {
+        this.interesesBrutos = interesesBrutos;
+    }
+
+    public void setInteresesNetos(double interesesNetos) {
+        this.interesesNetos = interesesNetos;
+    }
+
+    public void setInteresesRetenidos(double interesesRetenidos) {
+        this.interesesRetenidos = interesesRetenidos;
     }
 }
