@@ -17,7 +17,7 @@ import java.util.TimerTask;
 public class SplashScreenActivity extends AppCompatActivity {
 
         // Duración en milisegundos del mantenimiento de la splash screen
-        private static final long SPLASH_SCREEN_RETARDO = 5000;
+        private static final long SPLASH_SCREEN_RETARDO = 2500;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {

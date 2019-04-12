@@ -2,6 +2,21 @@
     <string name="app_name">Renta Calculator</string>
     <string name="paso1_3">Paso 1 de 3</string>
     <string name="salarioBrutoHint">Introducir salario bruto</string>
+    <string name="retenidoHint">Introducir porcentaje retenido</string>
     <string name="retencionHint">Introducir porcentaje de retención</string>
-    <string name="retenidoHint">Introducir cantidad retenida</string>
+    <string name="exentosHint">Introducir cantidad exentos</string>
+    <string name="contratoHint">Selectionar tipo contrato</string>
+    <string name="cotizacionHint">Introducir porcentaje de cotizacion</string>
+    <string name="cotizadoHint">Introducir cantidad cotizada</string>
+    <string name="extrasOrdinariasHint">Introducir Horas extra ordinarias</string>
+    <string name="extrasFuerzaHint">Introducir Horas extra por fuerza mayor</string>
+
+    <!-- Values of the contract type -->
+    <string name="contratoIndefinido">Indefinido</string>
+    <string name="contratoTemporal">Temporal</string>
+
+    <!-- Values of bottoms -->
+    <string name="btnSiguiente">Siguiente</string>
+
+
 </resources>
