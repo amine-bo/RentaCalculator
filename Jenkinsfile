@@ -13,6 +13,12 @@ pipeline {
         junit '**/TEST-*.xml'
       }
     }
+	
+	stage('Dependency Check') {
+       steps {
+        sh './gradlew dependencyCheckAnalyze'
+      }
+    }
   }
   post {
     failure {
