@@ -1,22 +1,22 @@
 package com.general.rentacalculator.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Intent;
 import android.view.View;
 
 import com.general.rentacalculator.R;
 
-public class MainActivity extends AppCompatActivity {
+public class Step4Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_step4);
     }
 
-    public void onButtonSiguiente(View v){
-        Intent Step2 = new Intent(MainActivity.this,   Step2Activity.class);
-        startActivity(Step2);
+    public void onButtonAnterior(View v){
+        Intent Step3 = new Intent(Step4Activity.this,   Step3Activity.class);
+        startActivity(Step3);
     }
 }

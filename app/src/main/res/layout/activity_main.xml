@@ -14,7 +14,7 @@
         android:fontFamily="sans-serif-black"
         android:text="@string/paso1_3"
         android:textColor="@color/colorPrimary"
-        android:textSize="50sp"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -131,6 +131,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extrasFuerza" />
+        app:layout_constraintTop_toBottomOf="@+id/extrasFuerza"
+        android:onClick="onButtonSiguiente"/>
 
 </android.support.constraint.ConstraintLayout>

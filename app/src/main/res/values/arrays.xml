@@ -4,4 +4,11 @@
         <item>@string/contratoIndefinido</item>
         <item>@string/contratoTemporal</item>
     </string-array>
+
+    <string-array name="ejemplolist">
+        <item>ejemplo1</item>
+        <item>ejemplo2</item>
+        <item>ejemplo3</item>
+        <item>ejemplo4</item>
+    </string-array>
 </resources>

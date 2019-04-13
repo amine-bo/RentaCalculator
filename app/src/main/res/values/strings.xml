@@ -1,4 +1,5 @@
 <resources>
+    <!-- Values of the Step 1 -->
     <string name="app_name">Renta Calculator</string>
     <string name="paso1_3">Paso 1 de 3</string>
     <string name="salarioBrutoHint">Introducir salario bruto</string>
@@ -11,12 +12,29 @@
     <string name="extrasOrdinariasHint">Introducir Horas extra ordinarias</string>
     <string name="extrasFuerzaHint">Introducir Horas extra por fuerza mayor</string>
 
+    <!-- Values of the Step 2 -->
+    <string name="paso2_3">Paso 2 de 3</string>
+    <string name="comunidadHint">Selectionar vuestra comunidad autónoma</string>
+    <string name="edadHint">Introducir vuestra edad</string>
+    <string name="discapHint">Teneis discapacidad ?</string>
+    <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida ?</string>
+    <string name="hijosHint">Introducir número de hijos</string>
+
+    <!-- Values of the Step 3 -->
+    <string name="paso3_3">Paso 3 de 3</string>
+
+    <!-- Values of the Step Resultado -->
+    <string name="paso_resultado">Resultado</string>
+
+
     <!-- Values of the contract type -->
     <string name="contratoIndefinido">Indefinido</string>
     <string name="contratoTemporal">Temporal</string>
 
     <!-- Values of bottoms -->
+    <string name="btnAnterior">Anterior</string>
     <string name="btnSiguiente">Siguiente</string>
+    <string name="btnResultado">Resultado</string>
 
 
 </resources>
