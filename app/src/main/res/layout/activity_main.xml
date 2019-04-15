@@ -21,8 +21,9 @@
 
     <EditText
         android:id="@+id/salarioBruto"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_euro_symbol_black_24dp"
         android:layout_marginTop="10dp"
         android:hint="@string/salarioBrutoHint"
         android:inputType="numberDecimal"
@@ -32,7 +33,7 @@
 
     <EditText
         android:id="@+id/retencion"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/retencionHint"
@@ -41,97 +42,28 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/salarioBruto" />
 
-    <EditText
-        android:id="@+id/retenido"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/retenidoHint"
-        android:inputType="numberDecimal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/retencion" />
-
-    <EditText
-        android:id="@+id/exentos"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/exentosHint"
-        android:inputType="numberDecimal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/retenido" />
-
     <!-- Todo: manage the hint text in the spinner and retrieve data from the enum -->
     <Spinner
-        android:id="@+id/contrato"
-        android:layout_width="fill_parent"
+        android:id="@+id/tipoContrato"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/contratoHint"
         android:entries="@array/contratotypelist"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exentos">
+        app:layout_constraintTop_toBottomOf="@id/retencion">
     </Spinner>
 
-    <EditText
-        android:id="@+id/cotizacion"
-        android:layout_width="fill_parent"
+    <AutoCompleteTextView
+        android:id="@+id/comunidadAutonoma"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="@string/cotizacionHint"
-        android:inputType="numberDecimal"
+        android:hint="@string/comunidadHint"
+        android:inputType="text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contrato" />
-
-    <EditText
-        android:id="@+id/cotizado"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/cotizadoHint"
-        android:inputType="numberDecimal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cotizacion" />
-
-    <EditText
-        android:id="@+id/extrasOrdinarias"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/extrasOrdinariasHint"
-        android:inputType="number"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cotizado" />
-
-    <EditText
-        android:id="@+id/extrasFuerza"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/extrasFuerzaHint"
-        android:inputType="number"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/extrasOrdinarias" />
-
-    <Button
-        android:id="@+id/ButtonSendFeedback"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/btnSiguiente"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extrasFuerza"
-        android:onClick="onButtonSiguiente"/>
+        app:layout_constraintTop_toBottomOf="@id/tipoContrato" />
 
 </android.support.constraint.ConstraintLayout>

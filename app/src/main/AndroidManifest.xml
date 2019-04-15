@@ -10,12 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Step4Activity"></activity>
-        <activity android:name=".activities.Step3Activity" />
-        <activity android:name=".activities.Step2Activity" />
+        <activity android:name=".activities.FourthFormActivity"></activity>
+        <activity android:name=".activities.ThirdFormActivity" />
+        <activity android:name=".activities.SecondFormActivity" />
         <activity
             android:name=".activities.SplashScreenActivity"
-            android:icon="@drawable/minilogo"
+            android:icon="@drawable/logoinit"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,8 +30,6 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
-        <service android:name=".services.DataService" />
     </application>
 
 </manifest>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    style="@android:style/Widget.ActionButton"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/textSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/ic_navigate_next_black_24dp"
+        android:onClick="onSiguienteClick"
+        android:text="Siguiente" />
+
+
+</RelativeLayout>

@@ -1,5 +1,7 @@
 package com.general.rentacalculator.enumerators;
 
+import com.general.rentacalculator.services.ConfigurationHolder;
+
 public enum ComunidadAutonomaEnum {
     ANDALUCIA("general.comunidad.andalucia"),
     ARAGON("general.comunidad.aragon"),
@@ -27,5 +29,14 @@ public enum ComunidadAutonomaEnum {
 
     public String getI18nKey() {
         return i18nKey;
+    }
+
+    public ComunidadAutonomaEnum getByi18nKey(String i18nKey){
+        for(ComunidadAutonomaEnum value: ComunidadAutonomaEnum.values()){
+            if(value.getI18nKey().equals(i18nKey)){
+                return value;
+            }
+        }
+        return null;
     }
 }

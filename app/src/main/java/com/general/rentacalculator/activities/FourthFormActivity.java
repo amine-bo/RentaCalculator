@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.general.rentacalculator.R;
 
-public class Step4Activity extends AppCompatActivity {
+public class FourthFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class Step4Activity extends AppCompatActivity {
     }
 
     public void onButtonAnterior(View v){
-        Intent Step3 = new Intent(Step4Activity.this,   Step3Activity.class);
+        Intent Step3 = new Intent(FourthFormActivity.this,   ThirdFormActivity.class);
         startActivity(Step3);
     }
 }

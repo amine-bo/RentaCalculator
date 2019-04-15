@@ -3,13 +3,10 @@ package com.general.rentacalculator.activities;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.general.rentacalculator.R;
-import com.general.rentacalculator.services.DataService;
-import com.general.rentacalculator.services.ResultService;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,9 +26,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
 
             setContentView(R.layout.activity_splash_screen);
-
-            //Iniciar el servicio de recogida de datos de las pantallas
-            startService(new Intent(this, DataService.class));
 
             TimerTask task = new TimerTask() {
                 @Override

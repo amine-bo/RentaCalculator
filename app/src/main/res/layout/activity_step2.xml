@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".activities.Step2Activity">
+    tools:context=".activities.SecondFormActivity">
 
     <TextView
         android:id="@+id/tituloPaso2"
@@ -15,37 +15,13 @@
         android:text="@string/paso2_3"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"/>
+    <TextView
+        android:id="@+id/textExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tituloPaso2"/>
 
 
     <!-- Todo: complete the form for discapacidad y edad .... ?-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnAnterior"
-            android:layout_marginRight="-1dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:onClick="onButtonAnterior"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnSiguiente"
-            android:layout_marginLeft="-5dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:onClick="onButtonSiguiente"/>
-    </LinearLayout>
 
 </RelativeLayout>

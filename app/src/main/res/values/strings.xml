@@ -14,7 +14,7 @@
 
     <!-- Values of the Step 2 -->
     <string name="paso2_3">Paso 2 de 3</string>
-    <string name="comunidadHint">Selectionar vuestra comunidad autónoma</string>
+    <string name="comunidadHint">Introducir comunidad autónoma</string>
     <string name="edadHint">Introducir vuestra edad</string>
     <string name="discapHint">Teneis discapacidad ?</string>
     <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida ?</string>
