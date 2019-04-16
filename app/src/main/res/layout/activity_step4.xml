@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,34 +8,82 @@
     tools:context=".activities.MainActivity">
 
     <TextView
-        android:id="@+id/tituloPaso3"
-        android:layout_width="match_parent"
+        android:id="@+id/tituloPaso4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:fontFamily="sans-serif-black"
-        android:text="@string/paso_resultado"
+        android:text="@string/paso4_5"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/deduccionesEstatales"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:drawableRight="@drawable/ic_euro_symbol_black_24dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/deduccionesEstatalesHint"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloPaso4" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnAnterior"
-            android:layout_marginRight="-1dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:onClick="onButtonSiguiente"/>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/deduccionesAutonomicas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_euro_symbol_black_24dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/deduccionesAutonomicasHint"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deduccionesEstatales" />
 
-</RelativeLayout>
+    <CheckBox
+        android:id="@+id/movilidadGeografica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movilidadGeograficaHint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deduccionesAutonomicas"/>
+
+    <EditText
+        android:id="@+id/interesesBrutos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_euro_symbol_black_24dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/interesesBrutosHint"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movilidadGeografica" />
+
+    <EditText
+        android:id="@+id/donaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_euro_symbol_black_24dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/donacionesHint"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/interesesBrutos" />
+
+    <CheckBox
+        android:id="@+id/donado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/donadoHint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donaciones"/>
+
+
+</android.support.constraint.ConstraintLayout>

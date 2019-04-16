@@ -23,6 +23,16 @@
     <!-- Values of the Step 3 -->
     <string name="paso3_3">Paso 3 de 3</string>
 
+    <!-- Values of the Step 4 -->
+    <string name="paso4_5">Paso 4 de 5</string>
+    <string name="deduccionesEstatalesHint">Introducir deductiones estatales</string>
+    <string name="deduccionesAutonomicasHint">Introducir deducciones autonómicas</string>
+    <string name="movilidadGeograficaHint">Movilidad geográfica ?</string>
+    <string name="interesesBrutosHint">Introducir intereses brutos</string>
+    <string name="donacionesHint">Introducir donaciones</string>
+    <string name="donadoHint"> Más de 3 años donando ?</string>
+
+
     <!-- Values of the Step Resultado -->
     <string name="paso_resultado">Resultado</string>
 
