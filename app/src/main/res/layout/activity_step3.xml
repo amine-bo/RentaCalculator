@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.ThirdFormActivity">
 
     <TextView
@@ -14,40 +15,122 @@
         android:fontFamily="sans-serif-black"
         android:text="@string/paso3_3"
         android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="40sp" />
 
-    <!-- Todo: complete the form to minimise it so much data -->
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tituloHijos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:gravity="start"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/hijos"
+        android:layout_below="@id/tituloPaso3"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp" />
 
-        <Button
+    <LinearLayout
+        android:id="@+id/layoutHijosMenores3Anos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tituloHijos">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnAnterior"
-            android:layout_marginRight="-1dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:onClick="onButtonAnterior"/>
+            android:textColor="@color/colorBlack"
+            android:text="@string/hijosMenores3AnosHint"/>
+    <Spinner
+        android:id="@+id/hijosMenores3Anos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/listNumbers"
+        app:layout_constraintTop_toBottomOf="@+id/tituloPaso3"
+        android:spinnerMode="dropdown"/>
+    </LinearLayout>
 
-        <Button
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutHijosMenores25AnosDiscapacidad"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layoutHijosMenores3Anos">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnResultado"
-            android:layout_marginLeft="-5dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:onClick="onButtonResultado"/>
+            android:textColor="@color/colorBlack"
+            android:text="@string/hijosMenores25AnosDiscapacidadHint"/>
+        <Spinner
+            android:id="@+id/hijosMenores25AnosDiscapacidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:entries="@array/listNumbers"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tituloAscendientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/ascendientes"
+        android:layout_below="@id/layoutHijosMenores25AnosDiscapacidad"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/layoutAscendientesMayores65AnosDiscapacidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tituloAscendientes">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="@string/ascendientesMayores65AnosDiscapacidadHint"/>
+        <Spinner
+            android:id="@+id/ascendientesMayores65AnosDiscapacidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/listNumbers"
+            android:layout_gravity="center"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layoutAscendientesMayores65AnosDiscapacidad">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="@string/ascendientesMayores75AnosHint"/>
+        <Spinner
+            android:id="@+id/ascendientesMayores75Anos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/listNumbers"
+            android:layout_gravity="center"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
     </LinearLayout>
 
 </RelativeLayout>

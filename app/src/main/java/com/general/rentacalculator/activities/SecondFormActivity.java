@@ -25,6 +25,12 @@ public class SecondFormActivity extends AppCompatActivity {
         prueba.setText("El salario bruto es: "+renta.getSalarioBruto()+", y la retención es: "+renta.getRetencion()+"%");
     }
 
+    public void onSiguienteClick(View v) {
+        Intent intentStep3 = new Intent(SecondFormActivity.this, ThirdFormActivity.class);
+        intentStep3.putExtra("rentaModel", renta);
+        startActivity(intentStep3);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){

@@ -1,7 +1,7 @@
 <resources>
     <!-- Values of the Step 1 -->
     <string name="app_name">Renta Calculator</string>
-    <string name="paso1_3">Paso 1 de 3</string>
+    <string name="paso1_3">Paso 1 de 5</string>
     <string name="salarioBrutoHint">Introducir salario bruto</string>
     <string name="retenidoHint">Introducir porcentaje retenido</string>
     <string name="retencionHint">Introducir porcentaje de retención</string>
@@ -11,17 +11,23 @@
     <string name="cotizadoHint">Introducir cantidad cotizada</string>
     <string name="extrasOrdinariasHint">Introducir Horas extra ordinarias</string>
     <string name="extrasFuerzaHint">Introducir Horas extra por fuerza mayor</string>
+    <string name="comunidadHint">Introducir comunidad autónoma</string>
 
     <!-- Values of the Step 2 -->
-    <string name="paso2_3">Paso 2 de 3</string>
-    <string name="comunidadHint">Introducir comunidad autónoma</string>
+    <string name="paso2_3">Paso 2 de 5</string>
     <string name="edadHint">Introducir vuestra edad</string>
     <string name="discapHint">Teneis discapacidad ?</string>
     <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida ?</string>
     <string name="hijosHint">Introducir número de hijos</string>
 
     <!-- Values of the Step 3 -->
-    <string name="paso3_3">Paso 3 de 3</string>
+    <string name="paso3_3">Paso 3 de 5</string>
+    <string name="hijos">Hijos</string>
+    <string name="ascendientes">Ascendientes</string>
+    <string name="hijosMenores3AnosHint">Nº hijos menores de 3 años</string>
+    <string name="hijosMenores25AnosDiscapacidadHint">Nº hijos menores de 25 años o con discapacidad</string>
+    <string name="ascendientesMayores75AnosHint">Nº ascendientes mayores de 75 años</string>
+    <string name="ascendientesMayores65AnosDiscapacidadHint">Nº ascendientes mayores de 65 años o discapacitados</string>
 
     <!-- Values of the Step Resultado -->
     <string name="paso_resultado">Resultado</string>

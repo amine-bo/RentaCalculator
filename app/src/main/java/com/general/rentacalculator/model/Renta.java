@@ -22,8 +22,10 @@ public class Renta implements Serializable {
     private int edad;
     private DisabilityEnum discapacidad;
     private boolean ayuda;
-    private List<Person> hijos;
-    private List<Person> ascendentes;
+    private Integer hijosMenores3Anos;
+    private Integer hijosMenores25Anos;
+    private Integer ascendientesMayores65Anos;
+    private Integer ascendientesMayores75Anos;
 
     // extras
     private double interesesBrutos;
@@ -127,20 +129,36 @@ public class Renta implements Serializable {
         this.ayuda = ayuda;
     }
 
-    public List<Person> getHijos() {
-        return hijos;
+    public Integer getHijosMenores3Anos() {
+        return hijosMenores3Anos;
     }
 
-    public void setHijos(List<Person> hijos) {
-        this.hijos = hijos;
+    public void setHijosMenores3Anos(Integer hijosMenores3Anos) {
+        this.hijosMenores3Anos = hijosMenores3Anos;
     }
 
-    public List<Person> getAscendentes() {
-        return ascendentes;
+    public Integer getHijosMenores25Anos() {
+        return hijosMenores25Anos;
     }
 
-    public void setAscendentes(List<Person> ascendentes) {
-        this.ascendentes = ascendentes;
+    public void setHijosMenores25Anos(Integer hijosMenores25Anos) {
+        this.hijosMenores25Anos = hijosMenores25Anos;
+    }
+
+    public Integer getAscendientesMayores65Anos() {
+        return ascendientesMayores65Anos;
+    }
+
+    public void setAscendientesMayores65Anos(Integer ascendientesMayores65Anos) {
+        this.ascendientesMayores65Anos = ascendientesMayores65Anos;
+    }
+
+    public Integer getAscendientesMayores75Anos() {
+        return ascendientesMayores75Anos;
+    }
+
+    public void setAscendientesMayores75Anos(Integer ascendientesMayores75Anos) {
+        this.ascendientesMayores75Anos = ascendientesMayores75Anos;
     }
 
     public double getDonaciones() {
