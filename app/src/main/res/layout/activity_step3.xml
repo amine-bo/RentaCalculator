@@ -47,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:dropDownWidth="50dp"
         android:background="@android:drawable/btn_dropdown"
         android:entries="@array/listNumbers"
         app:layout_constraintTop_toBottomOf="@+id/tituloPaso3"
@@ -71,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:dropDownWidth="50dp"
             android:entries="@array/listNumbers"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
@@ -107,6 +109,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/listNumbers"
             android:layout_gravity="center"
+            android:dropDownWidth="50dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
     </LinearLayout>
@@ -129,6 +132,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/listNumbers"
             android:layout_gravity="center"
+            android:dropDownWidth="50dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
     </LinearLayout>
