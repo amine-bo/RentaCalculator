@@ -1,22 +1,19 @@
 package com.general.rentacalculator.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.general.rentacalculator.R;
-import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.model.Renta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SecondFormActivity extends AppCompatActivity {
     // TODO delete 2 following variables
@@ -37,12 +34,6 @@ public class SecondFormActivity extends AppCompatActivity {
         // TODO delete 2 following lines
         prueba = findViewById(R.id.textExample);
         prueba.setText("El salario bruto es: "+renta.getSalarioBruto()+", y la retención es: "+renta.getRetencion()+"%");
-    }
-
-    public void onSiguienteClick(View v) {
-        Intent intentStep3 = new Intent(SecondFormActivity.this, ThirdFormActivity.class);
-        intentStep3.putExtra("rentaModel", renta);
-        startActivity(intentStep3);
     }
 
     @Override
