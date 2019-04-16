@@ -2,16 +2,30 @@ package com.general.rentacalculator.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.general.rentacalculator.R;
+import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.model.Renta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SecondFormActivity extends AppCompatActivity {
+    // TODO delete 2 following variables
     private Renta renta;
     private TextView prueba;
+    private EditText edad;
+    private Spinner discapacidad;
+    private CheckBox ayudaMovilidadReducida;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +33,8 @@ public class SecondFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_step2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         renta = (Renta) getIntent().getSerializableExtra("rentaModel");
+        getLayoutElements();
+        // TODO delete 2 following lines
         prueba = findViewById(R.id.textExample);
         prueba.setText("El salario bruto es: "+renta.getSalarioBruto()+", y la retención es: "+renta.getRetencion()+"%");
     }
@@ -42,4 +58,46 @@ public class SecondFormActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+    /**
+     * Associates local variables with fields and prepares fields
+     */
+    private void getLayoutElements() {
+        edad = findViewById(R.id.edad);
+        // TODO put enum values in spinner
+        discapacidad = findViewById(R.id.discapacidad);
+        ayudaMovilidadReducida = findViewById(R.id.ayudaMovilidadReducida);
+    }
+
+    /**
+     * Actions when Next button clicked
+     * @param v
+     */
+    public void onSiguienteClick(View v){
+        if(fieldsValidation()){
+            renta.setEdad(Integer.valueOf(edad.getText().toString()));
+
+            renta.setAyuda(ayudaMovilidadReducida.isChecked());
+
+            // preparing next screen
+            Intent intentStep3 = new Intent(SecondFormActivity.this, ThirdFormActivity.class);
+            intentStep3.putExtra("rentaModel",renta);
+            startActivity(intentStep3);
+        }
+    }
+
+    /**
+     * Validates screen. Only age is mandatory here
+     * @return
+     */
+    public boolean fieldsValidation(){
+
+        if(TextUtils.isEmpty(edad.getText())){
+            edad.setError("La edad es un campo obligatorio");
+            return false;
+        }
+        return true;
+    }
+
+
 }

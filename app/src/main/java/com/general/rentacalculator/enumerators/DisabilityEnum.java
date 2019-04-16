@@ -1,13 +1,24 @@
 package com.general.rentacalculator.enumerators;
 
+import com.general.rentacalculator.R;
+
 public enum DisabilityEnum {
-    SUPERIOR_33("Igual o superior al 33 por 100"),
-        SUPERIOR_65("Igual o superior al 33 por 100");
+    SUPERIOR_33(R.string.disability33),
+    SUPERIOR_65(R.string.disability65),
+    NONE(R.string.disabilityNone);
 
-    String i18nKey;
+    private int idI18nKey;
 
-    private DisabilityEnum(String i18nKey){
-        this.i18nKey=i18nKey;
+    private DisabilityEnum(int idI18nKey){
+        this.idI18nKey=idI18nKey;
+    }
+
+    /**
+     * Returns the ID, not the i18nKey
+     * @return
+     */
+    public int getIdI18nKey(){
+        return  idI18nKey;
     }
 
 }
