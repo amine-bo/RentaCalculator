@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".activities.SecondFormActivity">
+
+    <TextView
+        android:id="@+id/tituloPaso2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/paso_resultado"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp"/>
+    <TextView
+        android:id="@+id/textExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tituloPaso2"/>
+
+
+    <!-- Todo: complete the form for discapacidad y edad .... ?-->
+
+</RelativeLayout>

@@ -11,11 +11,11 @@
     <string name="cotizadoHint">Introducir cantidad cotizada</string>
     <string name="extrasOrdinariasHint">Introducir Horas extra ordinarias</string>
     <string name="extrasFuerzaHint">Introducir Horas extra por fuerza mayor</string>
-    <string name="comunidadHint">Introducir comunidad autónoma</string>
 
     <!-- Values of the Step 2 -->
     <string name="paso2_3">Paso 2 de 5</string>
-    <string name="edadHint">Introducir vuestra edad</string>
+    <string name="comunidadHint">Introducir comunidad autónoma</string>
+    <string name="edadHint">Edad</string>
     <string name="discapHint">Teneis discapacidad ?</string>
     <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida ?</string>
     <string name="hijosHint">Introducir número de hijos</string>
@@ -28,6 +28,15 @@
     <string name="hijosMenores25AnosDiscapacidadHint">Nº hijos menores de 25 años o con discapacidad</string>
     <string name="ascendientesMayores75AnosHint">Nº ascendientes mayores de 75 años</string>
     <string name="ascendientesMayores65AnosDiscapacidadHint">Nº ascendientes mayores de 65 años o discapacitados</string>
+
+    <!-- Values of the Step 4 -->
+    <string name="paso4_5">Paso 4 de 5</string>
+    <string name="deduccionesEstatalesHint">Introducir deductiones estatales</string>
+    <string name="deduccionesAutonomicasHint">Introducir deducciones autonómicas</string>
+    <string name="movilidadGeograficaHint">Movilidad geográfica ?</string>
+    <string name="interesesBrutosHint">Introducir intereses brutos</string>
+    <string name="donacionesHint">Introducir donaciones</string>
+    <string name="donadoHint"> Más de 3 años donando ?</string>
 
     <!-- Values of the Step Resultado -->
     <string name="paso_resultado">Resultado</string>
@@ -42,5 +51,9 @@
     <string name="btnSiguiente">Siguiente</string>
     <string name="btnResultado">Resultado</string>
 
+    <!-- Values of disabilites -->
+    <string name="disability33">Igual o superior al 33%</string>
+    <string name="disability65">Igual o superior al 65%</string>
+    <string name="disabilityNone">Ninguna</string>
 
 </resources>

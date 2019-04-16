@@ -11,6 +11,13 @@
         <item>ejemplo3</item>
         <item>ejemplo4</item>
     </string-array>
+
+    <string-array name="disabilitiesList">
+        <item>@string/disabilityNone</item>
+        <item>@string/disability33</item>
+        <item>@string/disability65</item>
+    </string-array>
+
     <string-array name="listNumbers">
         <item>0</item>
         <item>1</item>
@@ -25,3 +32,4 @@
         <item>10</item>
     </string-array>
 </resources>
+
