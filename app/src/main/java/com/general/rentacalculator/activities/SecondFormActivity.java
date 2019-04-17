@@ -16,8 +16,9 @@ import com.general.rentacalculator.R;
 import com.general.rentacalculator.model.Renta;
 
 public class SecondFormActivity extends AppCompatActivity {
-    // TODO delete 2 following variables
+
     private Renta renta;
+    // TODO delete following variable
     private TextView prueba;
     private EditText edad;
     private Spinner discapacidad;
@@ -73,7 +74,7 @@ public class SecondFormActivity extends AppCompatActivity {
     public void onSiguienteClick(View v){
         if(fieldsValidation()){
             renta.setEdad(Integer.valueOf(edad.getText().toString()));
-
+            // TODO fill disabiliy enum from spinner
             renta.setAyuda(ayudaMovilidadReducida.isChecked());
 
             // preparing next screen
