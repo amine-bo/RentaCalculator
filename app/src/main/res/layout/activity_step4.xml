@@ -77,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@id/interesesBrutos" />
 
     <CheckBox
-        android:id="@+id/donado"
+        android:id="@+id/mas3Anos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/donadoHint"

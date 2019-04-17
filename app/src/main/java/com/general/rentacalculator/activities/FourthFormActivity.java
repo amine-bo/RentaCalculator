@@ -28,7 +28,18 @@ public class FourthFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step4);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getLayoutFields();
+
         renta = (Renta) getIntent().getSerializableExtra("rentaModel");
+    }
+
+    private void getLayoutFields() {
+        deduccionesEstatales = findViewById(R.id.deduccionesEstatales);
+        deduccionesComunidad = findViewById(R.id.deduccionesAutonomicas);
+        movilidadGeografica = findViewById(R.id.movilidadGeografica);
+        interesesBrutos = findViewById(R.id.interesesBrutos);
+        donaciones = findViewById(R.id.donaciones);
+        mas3Anos = findViewById(R.id.mas3Anos);
     }
 
     @Override
