@@ -35,6 +35,7 @@
         android:id="@+id/retencion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/percent"
         android:layout_marginTop="10dp"
         android:hint="@string/retencionHint"
         android:inputType="numberDecimal"
@@ -45,6 +46,7 @@
     <!-- Todo: manage the hint text in the spinner and retrieve data from the enum -->
     <Spinner
         android:id="@+id/tipoContrato"
+        android:tooltipText="Introducir tipo de contrato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

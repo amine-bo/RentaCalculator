@@ -3,6 +3,7 @@ package com.general.rentacalculator.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 
 import com.general.rentacalculator.R;
 import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
+import com.general.rentacalculator.filter.InputFilterMinMax;
 import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.services.ConfigurationHolder;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         renta = new Renta();
         getLayoutElements();
+        retencion.setFilters(new InputFilter[]{new InputFilterMinMax("0", "100")});
         setAutocompleteComunidadAutonoma();
     }
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         String[] comunidadesAutonomasI18nkey = new String[comunidadesAutonomasArray.size()];
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, comunidadesAutonomasArray.toArray(comunidadesAutonomasI18nkey));
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, comunidadesAutonomasArray.toArray(comunidadesAutonomasI18nkey));
         comunidadAutonoma.setAdapter(adapter);
     }
 
