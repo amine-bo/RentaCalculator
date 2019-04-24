@@ -2,6 +2,11 @@ package com.general.rentacalculator.services;
 
 import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 public class ResultService {
 
     /**
@@ -101,5 +106,46 @@ public class ResultService {
     public double calculateInteresesBrutos(double interesesNetos, double interesesRetenidos){
         return interesesNetos + interesesRetenidos;
     }
+
+
+    /**
+     * Caclculates cota from taxes sections. The last section should be an enormeous limit.
+     * In case calculus bases is bigger than this enormous last limit, tax would be applied in any
+     * case to following section
+     * TODO should be private
+     * @param baseCalculo calculus basis
+     * @param tramos taxes sections
+     * @return
+     */
+    public double calculateCota(double baseCalculo, Map<Double,Double> tramos){
+        List<Double> limits = new ArrayList<>(tramos.keySet());
+        Collections.sort(limits);
+        double last = 0;
+        double result = 0d;
+
+        for(int i=0; i<limits.size();i++){
+            // we get the limit of current section
+            double lim = limits.get(i);
+
+            if(i==limits.size()-1 || baseCalculo<lim){
+                // if its the last section we apply last tax to the rest, doesnt mind if bigger than limit
+                // if its lower than section limit, we apply tax to the rest
+                result += (baseCalculo-last) * (tramos.get(lim)/100);
+            }else {
+                // calculate result from tax to current section
+                result += (lim-last) * (tramos.get(lim)/100);
+            }
+
+            if(baseCalculo > lim){
+                // if there are still more sections to be applied, we continue
+                last=lim;
+            }else {
+                break;
+            }
+        }
+
+        return result;
+    }
+
 
 }
