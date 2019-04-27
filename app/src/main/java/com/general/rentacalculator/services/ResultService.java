@@ -1,14 +1,48 @@
 package com.general.rentacalculator.services;
 
+import android.content.Context;
+
 import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
+import com.general.rentacalculator.model.Renta;
+import com.general.rentacalculator.model.ResultRenta;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ResultService {
+    private final static String ESTADO = "general.constantes.estado";
+    private final static String AUTO = "general.constantes.auto";
+    private final static String INT_ESTADO = "general.constantes.int_estado";
+    private final static String INT_AUTO = "general.constantes.int_auto";
+    private final static String DONA_0 = "general.constantes.dona0";
+    private final static String DONA_3 = "general.constantes.dona3";
+
+    public void rentaResultCalculator(ResultRenta resultRenta, Renta renta, Context context) {
+        Map<Double, Double> auxCuotaMap = new HashMap<>();
+        double base = this.calculateBase(renta.getSalarioBruto(), renta.getCotizado(), false, 0);
+        resultRenta.setBase(base);
+        String[] estadoArray = ConfigurationHolder.getProperty(ESTADO, context).split(";");
+        for(String cuota:estadoArray){
+            auxCuotaMap.put(Double.valueOf(cuota.split(",")[0]), Double.valueOf(cuota.split(",")[1]));
+        }
+        double cuotaEstado = this.calculateCota(resultRenta.getBase(),auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
+        resultRenta.setCuotaEstado(cuotaEstado);
+        String[] autoArray = ConfigurationHolder.getProperty(AUTO, context).split(";");
+        auxCuotaMap = new HashMap<>();
+        for(String cuota:autoArray){
+            auxCuotaMap.put(Double.valueOf(cuota.split(",")[0]), Double.valueOf(cuota.split(",")[1]));
+        }
+        double cuotaAuto = this.calculateCota(resultRenta.getBase(),auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
+        resultRenta.setCuotaEstado(cuotaAuto);
+        double tipoEst = resultRenta.getCuotaEstado()/resultRenta.getBase() * 100;
+        double tipoAuto = resultRenta.getCuotaAuto()/resultRenta.getBase() * 100;
+        resultRenta.setInteresesEstado(tipoEst);
+        resultRenta.setInteresesAuto(tipoAuto);
+    }
 
     /**
      * Obtain basis of calculation
@@ -19,7 +53,7 @@ public class ResultService {
      * @param otrosGastosDeducibles
      * @return
      */
-    public double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) {
+    private double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) {
         return salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
     }
 
@@ -37,7 +71,7 @@ public class ResultService {
      * @param salarioBruto
      * @param retencion    as percentage
      */
-    public double calculateRetenido(double retencion, double salarioBruto) {
+    private double calculateRetenido(double retencion, double salarioBruto) {
         return salarioBruto * retencion / 100;
     }
 
@@ -55,7 +89,7 @@ public class ResultService {
      * @param valorCotizacionHorasExtraFuerza     as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
      * @throws MissingMandatoryValuesException
      */
-    public double calculateCotizado(double valorImpositivoDebidoTipoContrato,
+    private double calculateCotizado(double valorImpositivoDebidoTipoContrato,
                                     double valorImpositivoContingenciasComunes,
                                     double valorImpositivoFormacion, double salarioBruto, double exentos,
                                     int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
@@ -79,7 +113,7 @@ public class ResultService {
      * @param horasExtraFuerza                    optional
      * @param valorCotizacionHorasExtraFuerza     as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
      */
-    public double calculateCotizado(double cotizacion, double salarioBruto, double exentos,
+    private double calculateCotizado(double cotizacion, double salarioBruto, double exentos,
                                     int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
                                     int horasExtraFuerza, double valorCotizacionHorasExtraFuerza) throws MissingMandatoryValuesException {
         if (valorCotizacionHorasExtraOrdinarias == 0 && horasExtraOrdinarias > 0) {
@@ -98,7 +132,7 @@ public class ResultService {
      * @param interesesBrutos
      * @param interesesNetos
      */
-    public double calculateInteresesRetenidos(double interesesBrutos, double interesesNetos) {
+    private double calculateInteresesRetenidos(double interesesBrutos, double interesesNetos) {
         return interesesBrutos - interesesNetos;
     }
 
@@ -108,7 +142,7 @@ public class ResultService {
      * @param interesesBrutos
      * @param interesesRetenidos
      */
-    public double calculateInteresesNetos(double interesesBrutos, double interesesRetenidos) {
+    private double calculateInteresesNetos(double interesesBrutos, double interesesRetenidos) {
         return interesesBrutos - interesesRetenidos;
     }
 
@@ -118,7 +152,7 @@ public class ResultService {
      * @param interesesNetos
      * @param interesesRetenidos
      */
-    public double calculateInteresesBrutos(double interesesNetos, double interesesRetenidos) {
+    private double calculateInteresesBrutos(double interesesNetos, double interesesRetenidos) {
         return interesesNetos + interesesRetenidos;
     }
 
@@ -133,7 +167,7 @@ public class ResultService {
      * @param tramos      taxes sections
      * @return
      */
-    public double calculateCota(double baseCalculo, Map<Double, Double> tramos) {
+    private double calculateCota(double baseCalculo, Map<Double, Double> tramos) {
         List<Double> limits = new ArrayList<>(tramos.keySet());
         Collections.sort(limits);
         double last = 0;
@@ -163,7 +197,7 @@ public class ResultService {
         return result;
     }
 
-    public double calculateGravamen(int contributorAge, DisabilityEnum contributorDisabiliy, boolean requiresHelpOrHaveReducedMobility, int descendentsQuantity, int minors3yo, int ascendentsOlder65OrDisabledQuantity, int ascendentsOlder75Quantity) {
+    private double calculateGravamen(int contributorAge, DisabilityEnum contributorDisabiliy, boolean requiresHelpOrHaveReducedMobility, int descendentsQuantity, int minors3yo, int ascendentsOlder65OrDisabledQuantity, int ascendentsOlder75Quantity) {
         // personal situation
         double gravamen = calculateGravamenByAge(contributorAge);
         gravamen += calculateGravamenByPersonalDisability(contributorDisabiliy, requiresHelpOrHaveReducedMobility);
