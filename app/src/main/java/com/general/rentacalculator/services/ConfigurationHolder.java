@@ -64,7 +64,7 @@ public class ConfigurationHolder {
 
     /**
      * Get discount list for donations
-     * @param true if donations have been made for more than 3 years
+     * @param moreThreeYears true if donations have been made for more than 3 years
      * @return
      */
     public int getDonationsDiscount(boolean moreThreeYears){
@@ -72,13 +72,75 @@ public class ConfigurationHolder {
         return 1;
     }
 
-    protected static double getGeographicMobility(boolean mobility){
-        if(mobility){
-            // TODO
-            return 1;
-        }else{
-            return 0;
-        }
+    protected static double getGeographicMobility(){
+        // TODO
+        return 1;
     }
+
+    public static double getMinimalGravamenForContributor(){
+        // TODO
+        return 5550d;
+    }
+
+    public static double getMinimalGravamenForContributorOlder65(){
+        // TODO
+        return 5550+1150;
+    }
+
+    public static double getMinimalGravamenForContributorOlder75(){
+        // TODO
+        return 5500+1150+1400;
+    }
+
+    public static double getMinimalGravamenForOneChild(){
+        // TODO
+        return 2400;
+    }
+
+    public static double getMinimalGravamenForTwoChildren(){
+        // TODO
+        return 2700;
+    }
+
+    public static double getMinimalGravamenForThreeChildren(){
+        // TODO
+        return 4000;
+    }
+
+    public static double getMinimalGravamenForFourOrMoreChildren(){
+        // TODO
+        return 4500;
+    }
+
+    public static double getGravamenIncreaseByHavingChildYoungerThanThree(){
+        // TODO
+        return 2800;
+    }
+
+    public static double getMinimalGravamenForAscendentOlder65OrDisabled(){
+        // TODO
+        return 1150;
+    }
+
+    public static double getMinimalGravamenForAscendentOlder75(){
+        // TODO
+        return 1150+1400;
+    }
+
+    public static double getGravamenForContributorDisability33(){
+        // TODO
+        return 3000;
+    }
+
+    public static double getGravamenForContributorDisabilityWithHelpOrReducedMobility(){
+        // TODO
+        return 6000;
+    }
+
+    public static double getGravamenForContributorDisability65(){
+        // TODO
+        return 12000;
+    }
+
 
 }
