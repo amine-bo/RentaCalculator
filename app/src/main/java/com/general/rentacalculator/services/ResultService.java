@@ -197,7 +197,23 @@ public class ResultService {
         return result;
     }
 
-    private double calculateGravamen(int contributorAge, DisabilityEnum contributorDisabiliy, boolean requiresHelpOrHaveReducedMobility, int descendentsQuantity, int minors3yo, int ascendentsOlder65OrDisabledQuantity, int ascendentsOlder75Quantity) {
+    /**
+     * Calculates gravamen
+     * @param contributorAge
+     * @param contributorDisabiliy
+     * @param requiresHelpOrHaveReducedMobility
+     * @param descendentsQuantity
+     * @param minors3yo
+     * @param ascendentsOlder65OrDisabledQuantity
+     * @param ascendentsOlder75Quantity
+     * @return
+     * @throws MissingMandatoryValuesException
+     */
+    public double calculateGravamen(int contributorAge, DisabilityEnum contributorDisabiliy, boolean requiresHelpOrHaveReducedMobility, int descendentsQuantity, int minors3yo, int ascendentsOlder65OrDisabledQuantity, int ascendentsOlder75Quantity) throws MissingMandatoryValuesException{
+        // mandatory vars
+        if( contributorAge <=0){
+            throw new MissingMandatoryValuesException("Contributor age is missing or invalid");
+        }
         // personal situation
         double gravamen = calculateGravamenByAge(contributorAge);
         gravamen += calculateGravamenByPersonalDisability(contributorDisabiliy, requiresHelpOrHaveReducedMobility);
@@ -261,5 +277,91 @@ public class ResultService {
         }
         return 0;
     }
+
+    /**
+     * Calculates actual tax in percentage
+     * @param resultado
+     * @param base
+     * @return
+     * @throws MissingMandatoryValuesException if basis is invalid
+     */
+    private double calculateTasaEfectiva(double resultado, double base) throws MissingMandatoryValuesException{
+        if(base <= 0){
+            throw new MissingMandatoryValuesException("Calculus basis is equals to 0 or invalid value");
+        }
+
+        return resultado/base;
+    }
+
+    /**
+     * Calculates result of declaration, whether user has paid in excess or not, therefore, if user
+     * has to be returned or has to pay.
+     * If result is positive, user has to pay, if it's negative, user has to be paid.
+     * @param cuotaLiquida what actually have to be paid
+     * @param retenidoTotal what have been paid
+     * @return result
+     * @throws MissingMandatoryValuesException if any of both parameters has invalid value
+     */
+    private double calculateResultado(double cuotaLiquida, double retenidoTotal) throws MissingMandatoryValuesException{
+        if(cuotaLiquida <= 0){
+            throw new MissingMandatoryValuesException("Liquid cuota has invalid value");
+        }else if(retenidoTotal <=0){
+            throw new MissingMandatoryValuesException("Total retained has invalid value");
+        }
+
+return cuotaLiquida - retenidoTotal;
+    }
+
+    /**
+     * Calculates actual amount paid by user. It sums up retained money by salary and by interests
+     * @param retenido
+     * @param interesesRetenidos
+     * @return
+     */
+    private double calculateRetenidoTotal(double retenido, double interesesRetenidos){
+        return retenido + interesesRetenidos;
+    }
+
+    /**
+     * Calculates total amount user has to pay, summing up what has to pay to state and to autonomic government
+     * @param liquidoEstado
+     * @param liquidoAutonomia
+     * @return
+     */
+    private double calculateLiquidoTotal(double liquidoEstado, double liquidoAutonomia){
+        return liquidoAutonomia + liquidoEstado;
+    }
+
+    /**
+     * Calculates total to be paid to autonomica government or state
+     * @param cuota from autonomic gov or state
+     * @param intereses from autonomic gov or state
+     * @param deducciones from autonomic gov or state
+     * @return
+     */
+    private double calculateLiquidoPartial(double cuota, double intereses, double deducciones){
+        return cuota + intereses - deducciones;
+    }
+
+    /**
+     * Calculates total reliefs to autonomic government or state
+     * @param deducciones from autonomic gov or state
+     * @param desgravacionDonacion total relief by donations
+     * @return
+     */
+    private double calculateDeduccionesPartial(double deducciones, double desgravacionDonacion){
+        return deducciones + desgravacionDonacion/2;
+    }
+
+    /**
+     * Calculates amount user has actually paid. Difference would be what State paid to that ONG
+     * @param donacion donation made by user directly to ONG
+     * @param desgravacioneFinalDonacion reliefed by donation
+     * @return
+     */
+    private double calculateDonacionEfectiva(double donacion, double desgravacioneFinalDonacion){
+        return donacion - desgravacioneFinalDonacion;
+}
+
 
 }
