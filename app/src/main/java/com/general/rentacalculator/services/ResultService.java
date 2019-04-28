@@ -2,6 +2,7 @@ package com.general.rentacalculator.services;
 
 import android.content.Context;
 
+import com.general.rentacalculator.enumerators.ContractTypeEnum;
 import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 import com.general.rentacalculator.model.Renta;
@@ -23,20 +24,26 @@ public class ResultService {
 
     public void rentaResultCalculator(ResultRenta resultRenta, Renta renta, Context context) throws MissingMandatoryValuesException {
         Map<Double, Double> auxCuotaMap = new HashMap<>();
+        // retained salary
+        resultRenta.setRetenidoTotal(this.calculateRetenido(renta.getRetencion(), renta.getSalarioBruto()));
+
+        // cotizacion
+        resultRenta.setCotizado(this.calculateCotizado(renta.getTipoContrato(), renta.getSalarioBruto(), renta.getExentos(), renta.getExtrasOrdinarias(), renta.getExtrasFuerza()));
+
         // basis
-        double base = this.calculateBase(renta.getSalarioBruto(), renta.getCotizado(), false, 0);
+        double base = this.calculateBase(renta.getSalarioBruto(), resultRenta.getCotizado(), false, 0);
         resultRenta.setBase(base);
 
         // gravamen
-        renta.setGravamen(calculateGravamen(renta.getEdad(), renta.getDiscapacidad(), renta.isAyuda(), renta.getHijosMenores25Anos(), renta.getHijosMenores3Anos(), renta.getAscendientesMayores65Anos(), renta.getAscendientesMayores75Anos()));
+        renta.setGravamen(this.calculateGravamen(renta.getEdad(), renta.getDiscapacidad(), renta.isAyuda(), renta.getHijosMenores25Anos(), renta.getHijosMenores3Anos(), renta.getAscendientesMayores65Anos(), renta.getAscendientesMayores75Anos()));
 
         // state cuota
-        auxCuotaMap = obtainPropertyMap(ESTADO, context);
+        auxCuotaMap = this.obtainPropertyMap(ESTADO, context);
         double cuotaEstado = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
         resultRenta.setCuotaEstado(cuotaEstado);
 
         // autonomic cuota
-        auxCuotaMap = obtainPropertyMap(AUTO, context);
+        auxCuotaMap = this.obtainPropertyMap(AUTO, context);
         double cuotaAuto = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
         resultRenta.setCuotaEstado(cuotaAuto);
         double tipoEst = resultRenta.getCuotaEstado() / resultRenta.getBase() * 100;
@@ -46,27 +53,27 @@ public class ResultService {
         resultRenta.setInteresesAuto(tipoAuto);
 
         // donations
-        if(renta.getDonaciones()>0){
-            Map<Double, Double> tramosDonacion = obtainTramosDonacion(renta.isMas3Anos(), context);
+        if (renta.getDonaciones() > 0) {
+            Map<Double, Double> tramosDonacion = this.obtainTramosDonacion(renta.isMas3Anos(), context);
             double desgravacionByDonation = this.calculateCota(resultRenta.getBase(), tramosDonacion);
-            resultRenta.setDeduccionDonacionFinal(calculateDonationFinal(desgravacionByDonation, resultRenta.getBase()));
+            resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, resultRenta.getBase()));
         }
 
         // state reliefs and taxes
-        double deduccionesEstado = calculateDeduccionesPartial(renta.getDeduccionesEstado(), resultRenta.getDeduccionDonacionFinal());
-        double liquidoEstado = calculateLiquidoPartial(resultRenta.getCuotaEstado(), resultRenta.getInteresesEstado(), deduccionesEstado);
+        double deduccionesEstado = this.calculateDeduccionesPartial(renta.getDeduccionesEstado(), resultRenta.getDeduccionDonacionFinal());
+        double liquidoEstado = this.calculateLiquidoPartial(resultRenta.getCuotaEstado(), resultRenta.getInteresesEstado(), deduccionesEstado);
 
         // autonomic reliefs and taxes
-        double deduccionesAutonomia = calculateDeduccionesPartial(renta.getDeduccionesComunidad(), resultRenta.getDeduccionDonacionFinal());
-        double liquidoAutonomia = calculateLiquidoPartial(resultRenta.getCuotaAuto(), resultRenta.getInteresesAuto(), deduccionesAutonomia);
+        double deduccionesAutonomia = this.calculateDeduccionesPartial(renta.getDeduccionesComunidad(), resultRenta.getDeduccionDonacionFinal());
+        double liquidoAutonomia = this.calculateLiquidoPartial(resultRenta.getCuotaAuto(), resultRenta.getInteresesAuto(), deduccionesAutonomia);
 
         // total reliefs and taxes
-        resultRenta.setCuotaLiquida(calculateLiquidoTotal(liquidoEstado, liquidoAutonomia));
-        resultRenta.setRetenidoTotal(calculateRetenidoTotal(renta.getRetenido(), renta.getInteresesRetenidos()));
+        resultRenta.setCuotaLiquida(this.calculateLiquidoTotal(liquidoEstado, liquidoAutonomia));
+        resultRenta.setRetenidoTotal(this.calculateRetenidoTotal(renta.getRetenido(), renta.getInteresesRetenidos()));
 
         // result
-        resultRenta.setResultado(calculateResultado(resultRenta.getCuotaLiquida(), resultRenta.getRetenidoTotal()));
-        resultRenta.setTasaEfectiva(calculateTasaEfectiva(resultRenta.getResultado(), resultRenta.getBase()));
+        resultRenta.setResultado(this.calculateResultado(resultRenta.getCuotaLiquida(), resultRenta.getRetenidoTotal()));
+        resultRenta.setTasaEfectiva(this.calculateTasaEfectiva(resultRenta.getResultado(), resultRenta.getBase()));
     }
 
     private Map<Double, Double> obtainPropertyMap(String property, Context context) {
@@ -116,52 +123,64 @@ public class ResultService {
     /**
      * Calculates Cotizado from Contract type
      *
-     * @param valorImpositivoDebidoTipoContrato   value in function of type of contract at ConfigurationHolder
-     * @param valorImpositivoContingenciasComunes value from ConfigurationHolder
-     * @param valorImpositivoFormacion            value from ConfigurationHolder
+     * @param tipoContrato         contract type
      * @param salarioBruto
-     * @param exentos                             optional
-     * @param horasExtraOrdinarias                optional
-     * @param valorCotizacionHorasExtraOrdinarias as percentage mandatory if horasExtraOrdinarias present or else throws MissingMandatoryValuesException
-     * @param horasExtraFuerza                    optional
-     * @param valorCotizacionHorasExtraFuerza     as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
-     * @throws MissingMandatoryValuesException
+     * @param exentos              optional
+     * @param horasExtraOrdinarias optional
+     * @param horasExtraFuerza     optional
+     * @throws MissingMandatoryValuesException if mandatory value is missing such as gross salary or contract type
      */
-    private double calculateCotizado(double valorImpositivoDebidoTipoContrato,
-                                     double valorImpositivoContingenciasComunes,
-                                     double valorImpositivoFormacion, double salarioBruto, double exentos,
-                                     int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
-                                     int horasExtraFuerza, double valorCotizacionHorasExtraFuerza) throws MissingMandatoryValuesException {
-        double cotizacion = valorImpositivoDebidoTipoContrato + valorImpositivoContingenciasComunes
+    private double calculateCotizado(ContractTypeEnum tipoContrato,
+                                     double salarioBruto, double exentos,
+                                     int horasExtraOrdinarias,
+                                     int horasExtraFuerza) throws MissingMandatoryValuesException {
+        double valorImpositivoContingenciasComunes = ConfigurationHolder.getValorImpositivoContingenciasComunes();
+        double valorImpositivoFormacion = ConfigurationHolder.getValorImpositivoFormacion();
+        double valorImpositivoByTipoContrato;
+        if (ContractTypeEnum.CONTRATO_INDEFINIDO.equals(tipoContrato)) {
+            valorImpositivoByTipoContrato = ConfigurationHolder.getValorImpositivoContratoIndefinido();
+        } else if (ContractTypeEnum.CONTRATO_DEFINIDO.equals(tipoContrato)) {
+            valorImpositivoByTipoContrato = ConfigurationHolder.getValorImpositivoContratoTemporal();
+        } else {
+            throw new MissingMandatoryValuesException("Contract type missing");
+        }
+
+        double cotizacion = valorImpositivoByTipoContrato + valorImpositivoContingenciasComunes
                 + valorImpositivoFormacion;
         return this.calculateCotizado(cotizacion, salarioBruto, exentos, horasExtraOrdinarias,
-                valorCotizacionHorasExtraOrdinarias, horasExtraFuerza,
-                valorCotizacionHorasExtraFuerza);
+                horasExtraFuerza);
 
     }
 
     /**
      * Calculates Cotizado from Cotizacion percentage
      *
-     * @param cotizacion                          as percentage
+     * @param cotizacion           as percentage
      * @param salarioBruto
-     * @param exentos                             optional
-     * @param horasExtraOrdinarias                optional
-     * @param valorCotizacionHorasExtraOrdinarias as percentage mandatory if horasExtraOrdinarias present or else throws MissingMandatoryValuesException
-     * @param horasExtraFuerza                    optional
-     * @param valorCotizacionHorasExtraFuerza     as percentage mandatory if horasExtraFuerza present or else throws MissingMandatoryValuesException
+     * @param exentos              optional
+     * @param horasExtraOrdinarias optional
+     * @param horasExtraFuerza     optional
      */
     private double calculateCotizado(double cotizacion, double salarioBruto, double exentos,
-                                     int horasExtraOrdinarias, double valorCotizacionHorasExtraOrdinarias,
-                                     int horasExtraFuerza, double valorCotizacionHorasExtraFuerza) throws MissingMandatoryValuesException {
-        if (valorCotizacionHorasExtraOrdinarias == 0 && horasExtraOrdinarias > 0) {
-            throw new MissingMandatoryValuesException("Regular overtime setted but contribution value is 0");
-        } else if (valorCotizacionHorasExtraFuerza == 0 && horasExtraFuerza > 0) {
-            throw new MissingMandatoryValuesException("Force majeur time setted but contribution value is 0");
+                                     int horasExtraOrdinarias,
+                                     int horasExtraFuerza) throws MissingMandatoryValuesException {
+        double cotizacionHorasExtraOrdinarias = 0;
+        if (horasExtraOrdinarias > 0) {
+            cotizacionHorasExtraOrdinarias = horasExtraOrdinarias * ConfigurationHolder.getValorCotizacionHorasExtraOrdinarias() / 100;
         }
+
+        double cotizacionHorasExtraFuerza = 0;
+        if (horasExtraFuerza > 0) {
+            cotizacionHorasExtraFuerza = horasExtraFuerza * ConfigurationHolder.getValorCotizacionHorasExtraFuerza() / 100;
+        }
+
+        if (salarioBruto <= 0) {
+            throw new MissingMandatoryValuesException("Gross salary is mising;");
+        }
+
         return ((salarioBruto + exentos) * cotizacion / 100)
-                + (horasExtraOrdinarias * valorCotizacionHorasExtraOrdinarias / 100)
-                + (horasExtraFuerza * valorCotizacionHorasExtraFuerza / 100);
+                + cotizacionHorasExtraOrdinarias
+                + cotizacionHorasExtraFuerza;
     }
 
     /**
@@ -411,6 +430,7 @@ public class ResultService {
 
     /**
      * Calculates actual relief by donation, it cannot be bigger than 10% basis
+     *
      * @param desgravacionByDonation
      * @param basis
      * @return

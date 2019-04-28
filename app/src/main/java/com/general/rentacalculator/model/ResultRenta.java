@@ -3,6 +3,11 @@ package com.general.rentacalculator.model;
 public class ResultRenta {
 
     /**
+     * Total cotizado
+     */
+    private double cotizado;
+
+    /**
      * Calculation basis
      */
     private double base;
@@ -136,5 +141,13 @@ public class ResultRenta {
 
     public void setTasaEfectiva(double tasaEfectiva) {
         this.tasaEfectiva = tasaEfectiva;
+    }
+
+    public double getCotizado() {
+        return cotizado;
+    }
+
+    public void setCotizado(double cotizado) {
+        this.cotizado = cotizado;
     }
 }

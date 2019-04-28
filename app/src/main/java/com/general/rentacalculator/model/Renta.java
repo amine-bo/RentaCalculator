@@ -1,6 +1,7 @@
 package com.general.rentacalculator.model;
 
 import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
+import com.general.rentacalculator.enumerators.ContractTypeEnum;
 import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 
@@ -14,8 +15,9 @@ public class Renta implements Serializable {
     private float retencion;
     private double exentos;
     private double cotizado;
-    private double extrasOrdinarias;
-    private double extrasFuerza;
+    private int extrasOrdinarias;
+    private int extrasFuerza;
+    private ContractTypeEnum tipoContrato;
 
     // personal situation
     private ComunidadAutonomaEnum comunidadAutonoma;
@@ -81,19 +83,19 @@ public class Renta implements Serializable {
         this.cotizado = cotizado;
     }
 
-    public double getExtrasOrdinarias() {
+    public int getExtrasOrdinarias() {
         return extrasOrdinarias;
     }
 
-    public void setExtrasOrdinarias(double extrasOrdinarias) {
+    public void setExtrasOrdinarias(int extrasOrdinarias) {
         this.extrasOrdinarias = extrasOrdinarias;
     }
 
-    public double getExtrasFuerza() {
+    public int getExtrasFuerza() {
         return extrasFuerza;
     }
 
-    public void setExtrasFuerza(double extrasFuerza) {
+    public void setExtrasFuerza(int extrasFuerza) {
         this.extrasFuerza = extrasFuerza;
     }
 
@@ -239,5 +241,13 @@ public class Renta implements Serializable {
 
     public void setInteresesRetenidos(double interesesRetenidos) {
         this.interesesRetenidos = interesesRetenidos;
+    }
+
+    public ContractTypeEnum getTipoContrato() {
+        return tipoContrato;
+    }
+
+    public void setTipoContrato(ContractTypeEnum tipoContrato) {
+        this.tipoContrato = tipoContrato;
     }
 }

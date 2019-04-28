@@ -26,121 +26,154 @@ public class ConfigurationHolder {
 
     /**
      * Get list of taxes of given administration
+     *
      * @param comunidad
      * @return
      */
-    public int getTaxComunidad(ComunidadAutonomaEnum comunidad){
+    public int getTaxComunidad(ComunidadAutonomaEnum comunidad) {
         // TODO
         return 1;
     }
 
     /**
      * Get State taxes list
+     *
      * @return
      */
-    public int getTaxState(){
+    public int getTaxState() {
         // TODO
         return 1;
     }
 
     /**
      * Get list of taxes of given administration for interests
+     *
      * @param comunidad
      * @return
      */
-    public int getInterestsTaxComunidad(ComunidadAutonomaEnum comunidad){
+    public int getInterestsTaxComunidad(ComunidadAutonomaEnum comunidad) {
         // TODO
         return 1;
     }
 
     /**
      * Get State taxes list for interests
+     *
      * @return
      */
-    public int getInterestsTaxState(){
+    public int getInterestsTaxState() {
         // TODO
         return 1;
     }
 
     /**
      * Get discount list for donations
+     *
      * @param moreThreeYears true if donations have been made for more than 3 years
      * @return
      */
-    public int getDonationsDiscount(boolean moreThreeYears){
+    public int getDonationsDiscount(boolean moreThreeYears) {
         // TODO
         return 1;
     }
 
-    protected static double getGeographicMobility(){
+    protected static double getGeographicMobility() {
         // TODO
         return 1;
     }
 
-    public static double getMinimalGravamenForContributor(){
+    public static double getMinimalGravamenForContributor() {
         // TODO
         return 5550d;
     }
 
-    public static double getMinimalGravamenForContributorOlder65(){
+    public static double getMinimalGravamenForContributorOlder65() {
         // TODO
-        return 5550+1150;
+        return 5550 + 1150;
     }
 
-    public static double getMinimalGravamenForContributorOlder75(){
+    public static double getMinimalGravamenForContributorOlder75() {
         // TODO
-        return 5500+1150+1400;
+        return 5500 + 1150 + 1400;
     }
 
-    public static double getMinimalGravamenForOneChild(){
+    public static double getMinimalGravamenForOneChild() {
         // TODO
         return 2400;
     }
 
-    public static double getMinimalGravamenForTwoChildren(){
+    public static double getMinimalGravamenForTwoChildren() {
         // TODO
         return 2700;
     }
 
-    public static double getMinimalGravamenForThreeChildren(){
+    public static double getMinimalGravamenForThreeChildren() {
         // TODO
         return 4000;
     }
 
-    public static double getMinimalGravamenForFourOrMoreChildren(){
+    public static double getMinimalGravamenForFourOrMoreChildren() {
         // TODO
         return 4500;
     }
 
-    public static double getGravamenIncreaseByHavingChildYoungerThanThree(){
+    public static double getGravamenIncreaseByHavingChildYoungerThanThree() {
         // TODO
         return 2800;
     }
 
-    public static double getMinimalGravamenForAscendentOlder65OrDisabled(){
+    public static double getMinimalGravamenForAscendentOlder65OrDisabled() {
         // TODO
         return 1150;
     }
 
-    public static double getMinimalGravamenForAscendentOlder75(){
+    public static double getMinimalGravamenForAscendentOlder75() {
         // TODO
-        return 1150+1400;
+        return 1150 + 1400;
     }
 
-    public static double getGravamenForContributorDisability33(){
+    public static double getGravamenForContributorDisability33() {
         // TODO
         return 3000;
     }
 
-    public static double getGravamenForContributorDisabilityWithHelpOrReducedMobility(){
+    public static double getGravamenForContributorDisabilityWithHelpOrReducedMobility() {
         // TODO
         return 6000;
     }
 
-    public static double getGravamenForContributorDisability65(){
+    public static double getGravamenForContributorDisability65() {
         // TODO
         return 12000;
     }
 
+    public static double getValorImpositivoContingenciasComunes() {
+        // TODO
+        return 4.70;
+    }
 
+    public static double getValorImpositivoFormacion() {
+        // TODO
+        return 0.10;
+    }
+
+    public static double getValorImpositivoContratoIndefinido() {
+        // TODO
+        return 1.55;
+    }
+
+    public static double getValorImpositivoContratoTemporal() {
+        // TODO
+        return 1.60;
+    }
+
+    public static double getValorCotizacionHorasExtraOrdinarias() {
+        // TODO
+        return 4.70;
+    }
+
+    public static double getValorCotizacionHorasExtraFuerza() {
+        // TODO
+        return 2.00;
+    }
 }
