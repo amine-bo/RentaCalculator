@@ -46,11 +46,16 @@ public class ResultService {
         auxCuotaMap = this.obtainPropertyMap(AUTO, context);
         double cuotaAuto = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
         resultRenta.setCuotaEstado(cuotaAuto);
-        double tipoEst = resultRenta.getCuotaEstado() / resultRenta.getBase() * 100;
-        double tipoAuto = resultRenta.getCuotaAuto() / resultRenta.getBase() * 100;
-        // FIXME interests arent tipo. Actually, i think tipo isnt necessary
-        resultRenta.setInteresesEstado(tipoEst);
-        resultRenta.setInteresesAuto(tipoAuto);
+        // double tipoEst = resultRenta.getCuotaEstado() / resultRenta.getBase() * 100;
+        // double tipoAuto = resultRenta.getCuotaAuto() / resultRenta.getBase() * 100;
+ 
+        // interests
+        if (renta.getInteresesBrutos() > 0) { 
+            double intEst = this.calculateCota(renta.getInteresesBrutos(), this.obtainPropertyMap(INT_ESTADO,context));
+            double intAuto = this.calculateCota(renta.getInteresesBrutos(),this.obtainPropertyMap(INT_AUTO,context));
+            resultRenta.setInteresesEstado(intEst);
+            resultRenta.setInteresesAuto(intAuto);
+        }
 
         // donations
         if (renta.getDonaciones() > 0) {
