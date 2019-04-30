@@ -2,8 +2,10 @@ package com.general.rentacalculator.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.general.rentacalculator.R;
+import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.model.ResultRenta;
 import com.general.rentacalculator.services.ConfigurationHolder;
@@ -22,7 +24,11 @@ public class FifthFormActivity extends AppCompatActivity {
         renta = (Renta) getIntent().getSerializableExtra("rentaModel");
         ResultRenta resultRenta = new ResultRenta();
         ResultService resultService = new ResultService();
-        resultService.rentaResultCalculator(resultRenta, renta, this);
+        try {
+            resultService.rentaResultCalculator(resultRenta, renta, this);
+        } catch (MissingMandatoryValuesException e) {
+            Log.d("FifthFormActivity", "MissingMandatoryValuesException", e);
+        }
     }
 
 
