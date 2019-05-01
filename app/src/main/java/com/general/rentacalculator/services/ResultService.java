@@ -62,6 +62,7 @@ public class ResultService {
             Map<Double, Double> tramosDonacion = this.obtainTramosDonacion(renta.isMas3Anos(), context);
             double desgravacionByDonation = this.calculateCota(resultRenta.getBase(), tramosDonacion);
             resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, resultRenta.getBase()));
+            resultRenta.setDonacionEfectiva(this.calculateDonacionEfectiva(renta.getDonaciones(),resultRenta.getDeduccionDonacionFinal()));
         }
 
         // state reliefs and taxes
@@ -103,7 +104,8 @@ public class ResultService {
      * @param otrosGastosDeducibles
      * @return
      */
-    private double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) {
+    private double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) throws MissingMandatoryValuesException {
+this.assertNonNull(salarioBruto, "Gross salary is missing");
         return salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
     }
 
@@ -121,7 +123,8 @@ public class ResultService {
      * @param salarioBruto
      * @param retencion    as percentage
      */
-    private double calculateRetenido(double retencion, double salarioBruto) {
+    private double calculateRetenido(double retencion, double salarioBruto) throws MissingMandatoryValuesException {
+        this.assertNonNull(salarioBruto,"Gross salary is missing");
         return salarioBruto * retencion / 100;
     }
 
@@ -139,6 +142,8 @@ public class ResultService {
                                      double salarioBruto, double exentos,
                                      int horasExtraOrdinarias,
                                      int horasExtraFuerza) throws MissingMandatoryValuesException {
+        this.assertNonNull(salarioBruto, "Gross salary is missing");
+
         double valorImpositivoContingenciasComunes = ConfigurationHolder.getValorImpositivoContingenciasComunes();
         double valorImpositivoFormacion = ConfigurationHolder.getValorImpositivoFormacion();
         double valorImpositivoByTipoContrato;
@@ -179,9 +184,7 @@ public class ResultService {
             cotizacionHorasExtraFuerza = horasExtraFuerza * ConfigurationHolder.getValorCotizacionHorasExtraFuerza() / 100;
         }
 
-        if (salarioBruto <= 0) {
-            throw new MissingMandatoryValuesException("Gross salary is mising;");
-        }
+        this.assertNonNull(salarioBruto, "Gross salary is missing");
 
         return ((salarioBruto + exentos) * cotizacion / 100)
                 + cotizacionHorasExtraOrdinarias
@@ -194,7 +197,8 @@ public class ResultService {
      * @param interesesBrutos
      * @param interesesNetos
      */
-    private double calculateInteresesRetenidos(double interesesBrutos, double interesesNetos) {
+    private double calculateInteresesRetenidos(double interesesBrutos, double interesesNetos) throws MissingMandatoryValuesException{
+        this.assertNonNull(interesesBrutos, "Gross interests is missing");
         return interesesBrutos - interesesNetos;
     }
 
@@ -204,7 +208,8 @@ public class ResultService {
      * @param interesesBrutos
      * @param interesesRetenidos
      */
-    private double calculateInteresesNetos(double interesesBrutos, double interesesRetenidos) {
+    private double calculateInteresesNetos(double interesesBrutos, double interesesRetenidos) throws MissingMandatoryValuesException{
+        this.assertNonNull(interesesBrutos, "Gross interests is missing");
         return interesesBrutos - interesesRetenidos;
     }
 
@@ -229,7 +234,9 @@ public class ResultService {
      * @param tramos      taxes sections
      * @return
      */
-    private double calculateCota(double baseCalculo, Map<Double, Double> tramos) {
+    private double calculateCota(double baseCalculo, Map<Double, Double> tramos) throws MissingMandatoryValuesException{
+        this.assertNonNull(baseCalculo, "Calculus basis is missing");
+
         List<Double> limits = new ArrayList<>(tramos.keySet());
         Collections.sort(limits);
         double last = 0;
@@ -274,9 +281,8 @@ public class ResultService {
      */
     public double calculateGravamen(int contributorAge, DisabilityEnum contributorDisabiliy, boolean requiresHelpOrHaveReducedMobility, int descendentsQuantity, int minors3yo, int ascendentsOlder65OrDisabledQuantity, int ascendentsOlder75Quantity) throws MissingMandatoryValuesException {
         // mandatory vars
-        if (contributorAge <= 0) {
-            throw new MissingMandatoryValuesException("Contributor age is missing or invalid");
-        }
+        this.assertNonNull(contributorAge,"Contributor age is missing or invalid");
+
         // personal situation
         double gravamen = calculateGravamenByAge(contributorAge);
         gravamen += calculateGravamenByPersonalDisability(contributorDisabiliy, requiresHelpOrHaveReducedMobility);
@@ -350,9 +356,7 @@ public class ResultService {
      * @throws MissingMandatoryValuesException if basis is invalid
      */
     private double calculateTasaEfectiva(double resultado, double base) throws MissingMandatoryValuesException {
-        if (base <= 0) {
-            throw new MissingMandatoryValuesException("Calculus basis is equals to 0 or invalid value");
-        }
+        this.assertNonNull(base, "Calculus basis is missing");
 
         return resultado / base;
     }
@@ -368,11 +372,8 @@ public class ResultService {
      * @throws MissingMandatoryValuesException if any of both parameters has invalid value
      */
     private double calculateResultado(double cuotaLiquida, double retenidoTotal) throws MissingMandatoryValuesException {
-        if (cuotaLiquida <= 0) {
-            throw new MissingMandatoryValuesException("Liquid cuota has invalid value");
-        } else if (retenidoTotal <= 0) {
-            throw new MissingMandatoryValuesException("Total retained has invalid value");
-        }
+        this.assertNonNull(cuotaLiquida, "Liquid cuota has invalid value");
+        this.assertNonNull(retenidoTotal,"Total retained has invalid value");
 
         return cuotaLiquida - retenidoTotal;
     }
@@ -445,6 +446,17 @@ public class ResultService {
             return desgravacionByDonation;
         } else {
             return 0.1 * basis;
+        }
+    }
+
+    /**
+     * Checks the value is valid or else throws an error with given message
+     * @param value value to check
+     * @param message error message if not valid
+     */
+    private void assertNonNull(double value, String message) throws  MissingMandatoryValuesException{
+        if(value <= 0){
+            throw new MissingMandatoryValuesException(message);
         }
     }
 
