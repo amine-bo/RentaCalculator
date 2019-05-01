@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
             retencion.setError("La retención es un campo obligatorio");
             valid = false;
         }
+        if(TextUtils.isEmpty(comunidadAutonoma.getText())){
+            comunidadAutonoma.setError("La comunidad autónoma es un campo obligatorio");
+            valid = false;
+        }
         return valid;
     }
 
