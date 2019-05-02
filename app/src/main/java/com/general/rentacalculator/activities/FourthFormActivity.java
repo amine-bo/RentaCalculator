@@ -63,8 +63,6 @@ public class FourthFormActivity extends AppCompatActivity {
     }
 
     public void onSiguienteClick(View v) {
-        boolean areFieldsValid = FieldsValidation();
-        if(areFieldsValid) {
             renta.setDeduccionesEstado(Float.valueOf(deduccionesEstatales.getText().toString()));
             renta.setDeduccionesComunidad(Float.valueOf(deduccionesComunidad.getText().toString()));
             renta.setInteresesBrutos(Float.valueOf(interesesBrutos.getText().toString()));
@@ -74,27 +72,6 @@ public class FourthFormActivity extends AppCompatActivity {
             Intent intentStep5 = new Intent(FourthFormActivity.this, FifthFormActivity.class);
             intentStep5.putExtra("rentaModel", renta);
             startActivity(intentStep5);
-        }
     }
 
-    private boolean FieldsValidation() {
-        boolean valid = true;
-        if(TextUtils.isEmpty(deduccionesEstatales.getText())){
-            deduccionesEstatales.setError("Deducciones estatales es un campo obligatorio");
-            valid = false;
-        }
-        if(TextUtils.isEmpty(deduccionesComunidad.getText())){
-            deduccionesComunidad.setError("Deducciones autonómicas es un campo obligatorio");
-            valid = false;
-        }
-        if(TextUtils.isEmpty(interesesBrutos.getText())){
-            interesesBrutos.setError("Intereses brutos es un campo obligatorio");
-            valid = false;
-        }
-        if(TextUtils.isEmpty(donaciones.getText())){
-            donaciones.setError("Donaciones es un campo obligatorio");
-            valid = false;
-        }
-        return valid;
-    }
 }
