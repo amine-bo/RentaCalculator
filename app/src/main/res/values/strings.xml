@@ -6,7 +6,7 @@
     <string name="retenidoHint">Introducir porcentaje retenido</string>
     <string name="retencionHint">Introducir porcentaje de retención</string>
     <string name="exentosHint">Introducir cantidad exentos</string>
-    <string name="contratoHint">Selectionar tipo contrato</string>
+    <string name="contratoHint">Seleccionar tipo contrato</string>
     <string name="cotizacionHint">Introducir porcentaje de cotizacion</string>
     <string name="cotizadoHint">Introducir cantidad cotizada</string>
     <string name="extrasOrdinariasHint">Introducir Horas extra ordinarias</string>
@@ -16,8 +16,8 @@
     <string name="paso2_3">Paso 2 de 5</string>
     <string name="comunidadHint">Introducir comunidad autónoma</string>
     <string name="edadHint">Edad</string>
-    <string name="discapHint">Teneis discapacidad ?</string>
-    <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida ?</string>
+    <string name="discapHint">Presenta alguna discapacidad?</string>
+    <string name="ayudamovilidadHint">Acredita necesitar ayuda de 3os o tener movilidad reducida?</string>
     <string name="hijosHint">Introducir número de hijos</string>
 
     <!-- Values of the Step 3 -->
@@ -31,9 +31,9 @@
 
     <!-- Values of the Step 4 -->
     <string name="paso4_5">Paso 4 de 5</string>
-    <string name="deduccionesEstatalesHint">Introducir deductiones estatales</string>
+    <string name="deduccionesEstatalesHint">Introducir deducciones estatales</string>
     <string name="deduccionesAutonomicasHint">Introducir deducciones autonómicas</string>
-    <string name="movilidadGeograficaHint">Movilidad geográfica ?</string>
+    <string name="movilidadGeograficaHint">Está en movilidad geográfica?</string>
     <string name="interesesBrutosHint">Introducir intereses brutos</string>
     <string name="donacionesHint">Introducir donaciones</string>
     <string name="donadoHint"> Más de 3 años donando ?</string>
