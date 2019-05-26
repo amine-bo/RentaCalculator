@@ -3,9 +3,13 @@ package com.general.rentacalculator.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.widget.TooltipCompat;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -17,11 +21,17 @@ import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
 import com.general.rentacalculator.filter.InputFilterMinMax;
 import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.services.ConfigurationHolder;
+import com.general.rentacalculator.services.RentaUtils;
+import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TOOLTIP_SALARIOBRUTO = "general.UC01.salarioBruto";
+    private static final String TOOLTIP_RETENCION = "general.UC01.retencion";
+    private static final String TOOLTIP_TIPOCONTRATO = "general.UC01.tipoContrato";
+    private static final String TOOLTIP_COMUNIDADAUTONOMA = "general.UC01.ComunidadAutonoma";
     private EditText salarioBruto;
     private EditText retencion;
     private Spinner tipoContrato;
@@ -36,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         getLayoutElements();
         retencion.setFilters(new InputFilter[]{new InputFilterMinMax("0", "100")});
         setAutocompleteComunidadAutonoma();
+        final String text = "This is a test msg to bottom";
+        RentaUtils.setTooltipText(TOOLTIP_SALARIOBRUTO, salarioBruto, this);
+        RentaUtils.setTooltipText(TOOLTIP_RETENCION, retencion, this);
+        RentaUtils.setTooltipText(TOOLTIP_TIPOCONTRATO, tipoContrato, this);
+        RentaUtils.setTooltipText(TOOLTIP_COMUNIDADAUTONOMA, comunidadAutonoma, this);
+
     }
 
     @Override
