@@ -63,15 +63,24 @@ public class FourthFormActivity extends AppCompatActivity {
     }
 
     public void onSiguienteClick(View v) {
-            renta.setDeduccionesEstado(Float.valueOf(deduccionesEstatales.getText().toString()));
-            renta.setDeduccionesComunidad(Float.valueOf(deduccionesComunidad.getText().toString()));
-            renta.setInteresesBrutos(Float.valueOf(interesesBrutos.getText().toString()));
-            renta.setDonaciones(Float.valueOf(donaciones.getText().toString()));
+            renta.setDeduccionesEstado(getFloatValue(deduccionesEstatales));
+            renta.setDeduccionesComunidad(getFloatValue(deduccionesComunidad));
+            renta.setInteresesBrutos(getFloatValue(interesesBrutos));
+            renta.setDonaciones(getFloatValue(donaciones));
             renta.setMovilidadGeografica(movilidadGeografica.isChecked());
             renta.setMas3Anos(mas3Anos.isChecked());
             Intent intentStep5 = new Intent(FourthFormActivity.this, FifthFormActivity.class);
             intentStep5.putExtra("rentaModel", renta);
             startActivity(intentStep5);
+    }
+
+    private Float getFloatValue(EditText field){
+        String value = field.getText().toString();
+        if(TextUtils.isEmpty(value)){
+            return 0f;
+        }else{
+            return Float.valueOf(value);
+        }
     }
 
 }

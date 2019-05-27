@@ -55,6 +55,19 @@ public class ResultRenta {
      */
     private double tasaEfectiva;
 
+    /**
+     * Doing declaration is mandatory
+     */
+    private boolean obligatorio=false;
+    /**
+     * Doing declaration depends on other factors
+     */
+    private boolean obligacionCondicionante=false;
+    /**
+     * Doing declaration is optional
+     */
+    private boolean exento=false;
+
     public double getBase() {
         return base;
     }
@@ -150,4 +163,16 @@ public class ResultRenta {
     public void setCotizado(double cotizado) {
         this.cotizado = cotizado;
     }
+
+    public boolean isObligatorio(){ return obligatorio; }
+
+    public void setObligatorio(boolean obligatorio) { this.obligatorio = obligatorio; }
+
+    public boolean isExento() { return exento; }
+
+    public void setExento(boolean exento) { this.exento = exento; }
+
+    public boolean isObligacionCondicionante() { return obligacionCondicionante; }
+
+    public void setObligacionCondicionante(boolean obligacionCondicionante) { this.obligacionCondicionante=obligacionCondicionante; }
 }

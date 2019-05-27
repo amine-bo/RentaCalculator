@@ -69,6 +69,6 @@
         app:layout_constraintLeft_toRightOf="@+id/edad" />
 
 
-    <!-- Todo: complete the form for discapacidad y edad .... ?-->
+
 
 </android.support.constraint.ConstraintLayout>

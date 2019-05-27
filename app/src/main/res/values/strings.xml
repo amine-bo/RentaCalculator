@@ -40,7 +40,18 @@
 
     <!-- Values of the Step Resultado -->
     <string name="paso_resultado">Resultado</string>
-
+    <string name="cuotaLiquida">Cuota Líquida</string>
+    <string name="retenidoTotal">Retenido Total</string>
+    <string name="donacionEfectiva">Donación efectiva</string>
+    <string name="resultado">Resultado</string>
+    <string name="tasaReal">Tasa Real</string>
+    <string name="tasaAplicada">Tasa Aplicada</string>
+    <string name="aDevolver">A DEVOLVER</string>
+    <string name="aPagar">A PAGAR</string>
+    <string name="obligacion_obligatorio">Es obligatorio hacer la declaración de la renta*</string>
+    <string name="obligacion_exento">No hay obligación de hacer la declaración de la renta*</string>
+    <string name="obligacion_depende">Si las retribuciones provienen de un sólo pagador, no hay obligación de hacer la declaración de la renta*</string>
+    <string name="obligacion_aclaracion">*Verifique en su declaración si realmente tiene obligación o no de hacer la declaración de la renta</string>
 
     <!-- Values of the contract type -->
     <string name="contratoIndefinido">Indefinido</string>

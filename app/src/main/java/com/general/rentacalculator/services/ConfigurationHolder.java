@@ -176,4 +176,14 @@ public class ConfigurationHolder {
         // TODO
         return 2.00;
     }
+
+    public static double getMinimo(){
+        // TODO
+        return 22000;
+    }
+
+    public static double getInfimo(){
+        // TODO
+        return 12643;
+    }
 }

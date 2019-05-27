@@ -80,6 +80,17 @@ public class ResultService {
         // result
         resultRenta.setResultado(this.calculateResultado(resultRenta.getCuotaLiquida(), resultRenta.getRetenidoTotal()));
         resultRenta.setTasaEfectiva(this.calculateTasaEfectiva(resultRenta.getResultado(), resultRenta.getBase()));
+
+        // duties
+        if(base > ConfigurationHolder.getMinimo()){
+            resultRenta.setObligatorio(true);
+
+        }else if(base > ConfigurationHolder.getInfimo()){
+            resultRenta.setObligacionCondicionante(true);
+
+        }else{
+            resultRenta.setExento(true);
+        }
     }
 
     private Map<Double, Double> obtainPropertyMap(String property, Context context) {
