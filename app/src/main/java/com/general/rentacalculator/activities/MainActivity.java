@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         if(areFieldsValid) {
             renta.setSalarioBruto(Double.valueOf(salarioBruto.getText().toString()));
             renta.setRetencion(Float.valueOf(retencion.getText().toString()));
+            // TODO fill renta obj with Contract type value
             Intent intentStep2 = new Intent(MainActivity.this, SecondFormActivity.class);
             intentStep2.putExtra("rentaModel", renta);
             startActivity(intentStep2);
@@ -81,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
             retencion.setError("La retención es un campo obligatorio");
             valid = false;
         }
-        if(TextUtils.isEmpty(comunidadAutonoma.getText())){
+
+        try{
+            ComunidadAutonomaEnum.valueOf(comunidadAutonoma.getText().toString());
+        } catch (IllegalArgumentException | NullPointerException e) {
             comunidadAutonoma.setError("La comunidad autónoma es un campo obligatorio");
             valid = false;
         }
+
         return valid;
     }
 
