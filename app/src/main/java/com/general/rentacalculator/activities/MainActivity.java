@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner tipoContrato;
     private AutoCompleteTextView comunidadAutonoma;
     private Renta renta;
+    List<String> comunidadesAutonomasArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
             valid = false;
         }
 
-        try{
-            ComunidadAutonomaEnum.valueOf(comunidadAutonoma.getText().toString());
-        } catch (IllegalArgumentException | NullPointerException e) {
+        if(TextUtils.isEmpty(comunidadAutonoma.getText()) || !comunidadesAutonomasArray.contains(comunidadAutonoma.getText().toString())){
             comunidadAutonoma.setError("La comunidad autónoma es un campo obligatorio");
             valid = false;
         }
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setAutocompleteComunidadAutonoma() {
-        List<String> comunidadesAutonomasArray = new ArrayList<>();
+        comunidadesAutonomasArray = new ArrayList<>();
         for(ComunidadAutonomaEnum value: ComunidadAutonomaEnum.values()){
             String i18nKey = ConfigurationHolder.getProperty(value.getI18nKey(), this);
             comunidadesAutonomasArray.add(i18nKey);
