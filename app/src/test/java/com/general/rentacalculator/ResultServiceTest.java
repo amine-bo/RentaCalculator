@@ -1,5 +1,6 @@
 package com.general.rentacalculator;
 
+import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 import com.general.rentacalculator.services.ResultService;
 
 import org.junit.Assert;
@@ -19,7 +20,7 @@ public class ResultServiceTest {
     }
 
     @Test
-    public void cotaTest_smallerThanFirstLimit(){
+    public void cotaTest_smallerThanFirstLimit() throws MissingMandatoryValuesException{
         // given
         double baseCalculo = 3000;
         Map<Double,Double> tramos = new HashMap<>();
@@ -29,16 +30,16 @@ public class ResultServiceTest {
         tramos.put(35000d,50d);
 
         // assert
-//        double result = resultService.rentaResultCalculator(baseCalculo,tramos);
+        double result = resultService.calculateCota(baseCalculo,tramos);
 
         // then
-//        Assert.assertEquals( 270d,result,0.01);
+        Assert.assertEquals( 270d,result,0.01);
 
     }
 
 
     @Test
-    public void cotaTest_biggerThanLastLimit(){
+    public void cotaTest_biggerThanLastLimit() throws MissingMandatoryValuesException{
         // given
         double baseCalculo = 63000;
         Map<Double,Double> tramos = new HashMap<>();
@@ -49,15 +50,15 @@ public class ResultServiceTest {
         tramos.put(50000.20,20.1);
 
         // assert
-//        double result = resultService.calculateCota(baseCalculo,tramos);
+        double result = resultService.calculateCota(baseCalculo,tramos);
 
         // then
-//        Assert.assertEquals( 10008.71,result,0.01);
+        Assert.assertEquals( 10008.71,result,0.01);
 
     }
 
     @Test
-    public void cotaTest_insideLImitsAndUnordered(){
+    public void cotaTest_insideLImitsAndUnordered() throws MissingMandatoryValuesException {
         // given
         double baseCalculo = 23216.46;
         Map<Double,Double> tramos = new HashMap<>();
@@ -69,10 +70,10 @@ public class ResultServiceTest {
         tramos.put(35200d,15d);
 
         // assert
-//        double result = resultService.calculateCota(baseCalculo,tramos);
+        double result = resultService.calculateCota(baseCalculo,tramos);
 
         // then
-//        Assert.assertEquals( 2565.22,result,0.01);
+        Assert.assertEquals( 2565.22,result,0.01);
 
     }
 

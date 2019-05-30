@@ -1,5 +1,7 @@
 package com.general.rentacalculator.enumerators;
 
+import android.content.Context;
+
 import com.general.rentacalculator.services.ConfigurationHolder;
 
 public enum ComunidadAutonomaEnum {
@@ -37,9 +39,10 @@ public enum ComunidadAutonomaEnum {
         return taxProperty;
     }
 
-    public ComunidadAutonomaEnum getByi18nKey(String i18nKey){
+    public static ComunidadAutonomaEnum getByText(String text, Context context){
         for(ComunidadAutonomaEnum value: ComunidadAutonomaEnum.values()){
-            if(value.getI18nKey().equals(i18nKey)){
+            String str = ConfigurationHolder.getProperty(value.getI18nKey(),context);
+            if(str.equals(text)){
                 return value;
             }
         }

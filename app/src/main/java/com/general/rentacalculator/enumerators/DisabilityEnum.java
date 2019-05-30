@@ -1,8 +1,9 @@
 package com.general.rentacalculator.enumerators;
 
 import com.general.rentacalculator.R;
+import com.general.rentacalculator.interfaces.IdI18nKeyEnumQualifier;
 
-public enum DisabilityEnum {
+public enum DisabilityEnum implements IdI18nKeyEnumQualifier {
     SUPERIOR_33(R.string.disability33),
     SUPERIOR_65(R.string.disability65),
     NONE(R.string.disabilityNone);

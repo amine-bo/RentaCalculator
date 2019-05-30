@@ -46,16 +46,14 @@
     <!-- Todo: manage the hint text in the spinner and retrieve data from the enum -->
     <Spinner
         android:id="@+id/tipoContrato"
-        android:tooltipText="Introducir tipo de contrato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/contratoHint"
-        android:entries="@array/contratotypelist"
+        android:tooltipText="Introducir tipo de contrato"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/retencion">
-    </Spinner>
+        app:layout_constraintTop_toBottomOf="@id/retencion"></Spinner>
 
     <AutoCompleteTextView
         android:id="@+id/comunidadAutonoma"

@@ -42,7 +42,8 @@ public class FifthFormActivity extends AppCompatActivity {
             resultService.rentaResultCalculator(resultRenta, renta, this);
             fillDataResults(resultRenta);
         } catch (MissingMandatoryValuesException e) {
-            Log.d("FifthFormActivity", "MissingMandatoryValuesException", e);
+            // TODO manage error
+            Log.e("FifthFormActivity", "MissingMandatoryValuesException"+ e.getReason());
         }
     }
 
@@ -67,8 +68,12 @@ public class FifthFormActivity extends AppCompatActivity {
 
         if(resultRenta.getResultado()<0){
             resultadoLetra.setText(R.string.aDevolver);
+            resultadoLetra.setTextColor(getResources().getColor(R.color.colorDevolver));
+            resultado.setTextColor(getResources().getColor(R.color.colorDevolver));
         }else{
             resultadoLetra.setText(R.string.aPagar);
+            resultadoLetra.setTextColor(getResources().getColor(R.color.colorPagar));
+            resultado.setTextColor(getResources().getColor(R.color.colorPagar));
         }
 
         if(resultRenta.isObligatorio()){

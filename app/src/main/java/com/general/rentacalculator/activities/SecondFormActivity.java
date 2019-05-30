@@ -4,22 +4,22 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.general.rentacalculator.R;
+import com.general.rentacalculator.enumerators.DisabilityEnum;
 import com.general.rentacalculator.model.Renta;
+import com.general.rentacalculator.services.ActivityUtils;
 
 public class SecondFormActivity extends AppCompatActivity {
 
     private Renta renta;
-    // TODO delete following variable
-    private TextView prueba;
     private EditText edad;
     private Spinner discapacidad;
     private CheckBox ayudaMovilidadReducida;
@@ -29,12 +29,12 @@ public class SecondFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step2);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         renta = (Renta) getIntent().getSerializableExtra("rentaModel");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getLayoutElements();
-        // TODO delete 2 following lines
-        prueba = findViewById(R.id.textExample);
-        prueba.setText("El salario bruto es: "+renta.getSalarioBruto()+", y la retención es: "+renta.getRetencion()+"%");
+        setUpElements();
+
+
     }
 
     @Override
@@ -73,9 +73,11 @@ public class SecondFormActivity extends AppCompatActivity {
      */
     public void onSiguienteClick(View v){
         if(fieldsValidation()){
+            // populate data
             renta.setEdad(Integer.valueOf(edad.getText().toString()));
-            // TODO fill disabiliy enum from spinner
+            renta.setDiscapacidad(ActivityUtils.getEnumByText(discapacidad.getSelectedItem().toString(),DisabilityEnum.class,this));
             renta.setAyuda(ayudaMovilidadReducida.isChecked());
+            Log.d("SecondFormActivity", "Edad: "+ renta.getEdad() + ", Discapacidad: "+ renta.getDiscapacidad()+", Ayuda: "+renta.isAyuda());
 
             // preparing next screen
             Intent intentStep3 = new Intent(SecondFormActivity.this, ThirdFormActivity.class);
@@ -97,5 +99,9 @@ public class SecondFormActivity extends AppCompatActivity {
         return true;
     }
 
+
+    private void setUpElements(){
+        ActivityUtils.setUpSpinner(DisabilityEnum.class, discapacidad, this);
+    }
 
 }

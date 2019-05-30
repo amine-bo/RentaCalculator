@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,12 +64,16 @@ public class FourthFormActivity extends AppCompatActivity {
     }
 
     public void onSiguienteClick(View v) {
+        // populate data
             renta.setDeduccionesEstado(getFloatValue(deduccionesEstatales));
             renta.setDeduccionesComunidad(getFloatValue(deduccionesComunidad));
             renta.setInteresesBrutos(getFloatValue(interesesBrutos));
             renta.setDonaciones(getFloatValue(donaciones));
             renta.setMovilidadGeografica(movilidadGeografica.isChecked());
             renta.setMas3Anos(mas3Anos.isChecked());
+        Log.d("FourthFormActivity", "DeduccEstado: "+renta.getDeduccionesEstado()+", DeduccCA: "+renta.getDeduccionesComunidad()+", Intereses: "+renta.getInteresesBrutos()+", Donaciones: "+renta.getDonaciones()+", +3y: "+renta.isMas3Anos()+", MovilidadGeo: "+renta.isMovilidadGeografica());
+
+            // next screen
             Intent intentStep5 = new Intent(FourthFormActivity.this, FifthFormActivity.class);
             intentStep5.putExtra("rentaModel", renta);
             startActivity(intentStep5);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ public class ThirdFormActivity extends AppCompatActivity {
     }
 
     public void onSiguienteClick(View v) {
+        // populate data
         if(!TextUtils.isEmpty(hijosMenores3Anos.getSelectedItem().toString())){
             renta.setHijosMenores3Anos(Integer.valueOf(hijosMenores3Anos.getSelectedItem().toString()));
         }
@@ -43,6 +45,9 @@ public class ThirdFormActivity extends AppCompatActivity {
         if(!TextUtils.isEmpty(ascendientesMayores75Anos.getSelectedItem().toString())){
             renta.setAscendientesMayores75Anos(Integer.valueOf(ascendientesMayores75Anos.getSelectedItem().toString()));
         }
+        Log.d("ThirdFormActivity", "Hijos<3y: "+renta.getHijosMenores3Anos()+", Hijos<25y: "+renta.getHijosMenores25Anos()+", Ascend>65y: "+renta.getAscendientesMayores65Anos()+", Ascend>75y: "+renta.getAscendientesMayores75Anos());
+
+        // next screen
         Intent intentStep4 = new Intent(ThirdFormActivity.this, FourthFormActivity.class);
         intentStep4.putExtra("rentaModel", renta);
         startActivity(intentStep4);

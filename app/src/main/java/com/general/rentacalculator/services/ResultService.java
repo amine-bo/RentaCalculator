@@ -1,6 +1,7 @@
 package com.general.rentacalculator.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.general.rentacalculator.enumerators.ContractTypeEnum;
 import com.general.rentacalculator.enumerators.DisabilityEnum;
@@ -9,14 +10,15 @@ import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.model.ResultRenta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ResultService {
     private final static String ESTADO = "general.constantes.estado";
-    private final static String AUTO = "general.constantes.auto";
     private final static String INT_ESTADO = "general.constantes.int_estado";
     private final static String INT_AUTO = "general.constantes.int_auto";
     private final static String DONA_0 = "general.constantes.dona0";
@@ -41,11 +43,13 @@ public class ResultService {
         auxCuotaMap = this.obtainPropertyMap(ESTADO, context);
         double cuotaEstado = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
         resultRenta.setCuotaEstado(cuotaEstado);
+        Log.d("ResultService", "CuotaEst: "+cuotaEstado);
 
         // autonomic cuota
-        auxCuotaMap = this.obtainPropertyMap(AUTO, context);
+        auxCuotaMap = this.obtainPropertyMap(renta.getComunidadAutonoma().getTaxProperty(), context);
         double cuotaAuto = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
         resultRenta.setCuotaEstado(cuotaAuto);
+        Log.d("ResultService", "CuotaAut: "+cuotaAuto);
         // double tipoEst = resultRenta.getCuotaEstado() / resultRenta.getBase() * 100;
         // double tipoAuto = resultRenta.getCuotaAuto() / resultRenta.getBase() * 100;
  
@@ -60,22 +64,24 @@ public class ResultService {
         // donations
         if (renta.getDonaciones() > 0) {
             Map<Double, Double> tramosDonacion = this.obtainTramosDonacion(renta.isMas3Anos(), context);
-            double desgravacionByDonation = this.calculateCota(resultRenta.getBase(), tramosDonacion);
-            resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, resultRenta.getBase()));
+            double desgravacionByDonation = this.calculateCota(renta.getDonaciones(), tramosDonacion);
+            resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, renta.getDonaciones()));
             resultRenta.setDonacionEfectiva(this.calculateDonacionEfectiva(renta.getDonaciones(),resultRenta.getDeduccionDonacionFinal()));
         }
 
         // state reliefs and taxes
         double deduccionesEstado = this.calculateDeduccionesPartial(renta.getDeduccionesEstado(), resultRenta.getDeduccionDonacionFinal());
         double liquidoEstado = this.calculateLiquidoPartial(resultRenta.getCuotaEstado(), resultRenta.getInteresesEstado(), deduccionesEstado);
+        Log.d("ResultService", "DeduccEstado: "+deduccionesEstado+", liquidoEstado: "+liquidoEstado);
 
         // autonomic reliefs and taxes
         double deduccionesAutonomia = this.calculateDeduccionesPartial(renta.getDeduccionesComunidad(), resultRenta.getDeduccionDonacionFinal());
         double liquidoAutonomia = this.calculateLiquidoPartial(resultRenta.getCuotaAuto(), resultRenta.getInteresesAuto(), deduccionesAutonomia);
+        Log.d("ResultService", "DeduccAuto: "+deduccionesAutonomia+", liquidoAuto: "+liquidoAutonomia);
 
         // total reliefs and taxes
         resultRenta.setCuotaLiquida(this.calculateLiquidoTotal(liquidoEstado, liquidoAutonomia));
-        resultRenta.setRetenidoTotal(this.calculateRetenidoTotal(renta.getRetenido(), renta.getInteresesRetenidos()));
+        resultRenta.setRetenidoTotal(this.calculateRetenidoTotal(resultRenta.getRetenidoTotal(), renta.getInteresesRetenidos()));
 
         // result
         resultRenta.setResultado(this.calculateResultado(resultRenta.getCuotaLiquida(), resultRenta.getRetenidoTotal()));
@@ -117,7 +123,9 @@ public class ResultService {
      */
     private double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) throws MissingMandatoryValuesException {
 this.assertNonNull(salarioBruto, "Gross salary is missing");
-        return salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
+double base = salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
+Log.d("ResultService","Base: "+base);
+return base;
     }
 
     private double getValueByGeographicMobility(boolean movilidadGeo) {
@@ -136,7 +144,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      */
     private double calculateRetenido(double retencion, double salarioBruto) throws MissingMandatoryValuesException {
         this.assertNonNull(salarioBruto,"Gross salary is missing");
-        return salarioBruto * retencion / 100;
+        double retenido = salarioBruto * retencion / 100;
+        Log.d("ResultService", "Retenido: "+ retenido);
+        return retenido;
     }
 
     /**
@@ -168,6 +178,7 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
 
         double cotizacion = valorImpositivoByTipoContrato + valorImpositivoContingenciasComunes
                 + valorImpositivoFormacion;
+        Log.d("ResultService","Cotizacion: "+cotizacion);
         return this.calculateCotizado(cotizacion, salarioBruto, exentos, horasExtraOrdinarias,
                 horasExtraFuerza);
 
@@ -197,9 +208,11 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
 
         this.assertNonNull(salarioBruto, "Gross salary is missing");
 
-        return ((salarioBruto + exentos) * cotizacion / 100)
+        double cotizado = ((salarioBruto + exentos) * cotizacion / 100)
                 + cotizacionHorasExtraOrdinarias
                 + cotizacionHorasExtraFuerza;
+        Log.d("ResultService", "Cotizado: "+cotizado);
+        return cotizado;
     }
 
     /**
@@ -210,7 +223,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      */
     private double calculateInteresesRetenidos(double interesesBrutos, double interesesNetos) throws MissingMandatoryValuesException{
         this.assertNonNull(interesesBrutos, "Gross interests is missing");
-        return interesesBrutos - interesesNetos;
+        double intBrutos =interesesBrutos - interesesNetos;
+        Log.d("ResultService", "IntBrutos: "+intBrutos);
+        return intBrutos;
     }
 
     /**
@@ -221,7 +236,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      */
     private double calculateInteresesNetos(double interesesBrutos, double interesesRetenidos) throws MissingMandatoryValuesException{
         this.assertNonNull(interesesBrutos, "Gross interests is missing");
-        return interesesBrutos - interesesRetenidos;
+        double intNetos =interesesBrutos - interesesRetenidos;
+        Log.d("ResultService","IntNetos: "+intNetos);
+        return intNetos;
     }
 
     /**
@@ -231,7 +248,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      * @param interesesRetenidos
      */
     private double calculateInteresesBrutos(double interesesNetos, double interesesRetenidos) {
-        return interesesNetos + interesesRetenidos;
+        double intBrutos =interesesNetos + interesesRetenidos;
+        Log.d("ResultService", "IntBrutos: "+intBrutos);
+        return intBrutos;
     }
 
 
@@ -245,7 +264,7 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      * @param tramos      taxes sections
      * @return
      */
-    private double calculateCota(double baseCalculo, Map<Double, Double> tramos) throws MissingMandatoryValuesException{
+    public double calculateCota(double baseCalculo, Map<Double, Double> tramos) throws MissingMandatoryValuesException{
         this.assertNonNull(baseCalculo, "Calculus basis is missing");
 
         List<Double> limits = new ArrayList<>(tramos.keySet());
@@ -305,6 +324,7 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
         // ascendents
         gravamen += calculateGravamentByAscendents(ascendentsOlder65OrDisabledQuantity, ascendentsOlder75Quantity);
 
+        Log.d("ResultService","Gravamen: "+gravamen);
         return gravamen;
     }
 
@@ -368,8 +388,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      */
     private double calculateTasaEfectiva(double resultado, double base) throws MissingMandatoryValuesException {
         this.assertNonNull(base, "Calculus basis is missing");
-
-        return resultado / base;
+        double tasa = 100 * Math.abs(resultado / base);
+        Log.d("ResultService", "TasaEfectiva: "+tasa);
+        return tasa;
     }
 
     /**
@@ -386,7 +407,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
         this.assertNonNull(cuotaLiquida, "Liquid cuota has invalid value");
         this.assertNonNull(retenidoTotal,"Total retained has invalid value");
 
-        return cuotaLiquida - retenidoTotal;
+        double res =cuotaLiquida - retenidoTotal;
+        Log.d("ResultService", "Resultado: "+res);
+        return res;
     }
 
     /**
@@ -397,7 +420,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      * @return
      */
     private double calculateRetenidoTotal(double retenido, double interesesRetenidos) {
-        return retenido + interesesRetenidos;
+        double ret =retenido + interesesRetenidos;
+        Log.d("ResultService","Retenido: "+ret);
+        return ret;
     }
 
     /**
@@ -408,7 +433,9 @@ this.assertNonNull(salarioBruto, "Gross salary is missing");
      * @return
      */
     private double calculateLiquidoTotal(double liquidoEstado, double liquidoAutonomia) {
-        return liquidoAutonomia + liquidoEstado;
+        double liq =liquidoAutonomia + liquidoEstado;
+        Log.d("ResultService","LiquidoTotal: "+liq);
+        return liq;
     }
 
     /**

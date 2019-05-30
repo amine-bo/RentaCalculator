@@ -1,12 +1,20 @@
 package com.general.rentacalculator.enumerators;
 
-public enum ContractTypeEnum {
-    CONTRATO_INDEFINIDO("Contrato indefinido"),
-    CONTRATO_DEFINIDO("Contrato de duración determinada");
+import com.general.rentacalculator.interfaces.IdI18nKeyEnumQualifier;
+import com.general.rentacalculator.R;
 
-    String i18nKey;
+public enum ContractTypeEnum implements IdI18nKeyEnumQualifier {
+    CONTRATO_INDEFINIDO(R.string.contratoIndefinido),
+    CONTRATO_DEFINIDO(R.string.contratoTemporal);
 
-    ContractTypeEnum(String i18nKey){
-        this.i18nKey=i18nKey;
+    int idI18nKey;
+
+    ContractTypeEnum(int idI18nKey){
+        this.idI18nKey=idI18nKey;
     }
+
+    public int getIdI18nKey(){
+        return this.idI18nKey;
+    }
+
 }

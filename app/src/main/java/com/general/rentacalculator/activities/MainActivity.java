@@ -3,13 +3,10 @@ package com.general.rentacalculator.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.support.v7.widget.TooltipCompat;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -18,11 +15,12 @@ import android.widget.Spinner;
 
 import com.general.rentacalculator.R;
 import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
+import com.general.rentacalculator.enumerators.ContractTypeEnum;
 import com.general.rentacalculator.filter.InputFilterMinMax;
 import com.general.rentacalculator.model.Renta;
+import com.general.rentacalculator.services.ActivityUtils;
 import com.general.rentacalculator.services.ConfigurationHolder;
 import com.general.rentacalculator.services.RentaUtils;
-import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         renta = new Renta();
         getLayoutElements();
-        retencion.setFilters(new InputFilter[]{new InputFilterMinMax("0", "100")});
-        setAutocompleteComunidadAutonoma();
+        setUpElements();
+
         final String text = "This is a test msg to bottom";
         RentaUtils.setTooltipText(TOOLTIP_SALARIOBRUTO, salarioBruto, this);
         RentaUtils.setTooltipText(TOOLTIP_RETENCION, retencion, this);
@@ -64,9 +62,14 @@ public class MainActivity extends AppCompatActivity {
     public void onSiguienteClick(View v) {
         boolean areFieldsValid = FieldsValidation();
         if(areFieldsValid) {
+            // populate data
             renta.setSalarioBruto(Double.valueOf(salarioBruto.getText().toString()));
             renta.setRetencion(Float.valueOf(retencion.getText().toString()));
-            // TODO fill renta obj with Contract type value
+            renta.setTipoContrato(ActivityUtils.getEnumByText(tipoContrato.getSelectedItem().toString(), ContractTypeEnum.class, this));
+            renta.setComunidadAutonoma(ComunidadAutonomaEnum.getByText(comunidadAutonoma.getText().toString(), this));
+            Log.d("MainActivity","SalarioBruto: "+renta.getSalarioBruto()+", Retención: "+renta.getRetencion()+", TipoContrato: "+renta.getTipoContrato()+", ComAutonoma: "+renta.getComunidadAutonoma());
+
+            // next screen
             Intent intentStep2 = new Intent(MainActivity.this, SecondFormActivity.class);
             intentStep2.putExtra("rentaModel", renta);
             startActivity(intentStep2);
@@ -110,4 +113,12 @@ public class MainActivity extends AppCompatActivity {
         retencion = findViewById(R.id.retencion);
         salarioBruto = findViewById(R.id.salarioBruto);
     }
+
+    private void setUpElements(){
+        retencion.setFilters(new InputFilter[]{new InputFilterMinMax("0", "100")});
+        setAutocompleteComunidadAutonoma();
+        ActivityUtils.setUpSpinner(ContractTypeEnum.class, tipoContrato, this);
+    }
+
+
 }

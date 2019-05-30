@@ -3,15 +3,12 @@ package com.general.rentacalculator.model;
 import com.general.rentacalculator.enumerators.ComunidadAutonomaEnum;
 import com.general.rentacalculator.enumerators.ContractTypeEnum;
 import com.general.rentacalculator.enumerators.DisabilityEnum;
-import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Renta implements Serializable {
     // contractual situation
     private double salarioBruto;
-    private double retenido;
     private float retencion;
     private double exentos;
     private double cotizado;
@@ -49,14 +46,6 @@ public class Renta implements Serializable {
 
     public void setSalarioBruto(double salarioBruto) {
         this.salarioBruto = salarioBruto;
-    }
-
-    public double getRetenido() {
-        return retenido;
-    }
-
-    public void setRetenido(double retenido) {
-        this.retenido = retenido;
     }
 
     public float getRetencion() {
