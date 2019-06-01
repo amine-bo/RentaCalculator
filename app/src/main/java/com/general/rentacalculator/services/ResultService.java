@@ -10,12 +10,10 @@ import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.model.ResultRenta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ResultService {
     private final static String ESTADO = "general.constantes.estado";
@@ -33,7 +31,7 @@ public class ResultService {
         resultRenta.setCotizado(this.calculateCotizado(renta.getTipoContrato(), renta.getSalarioBruto(), renta.getExentos(), renta.getExtrasOrdinarias(), renta.getExtrasFuerza()));
 
         // basis
-        double base = this.calculateBase(renta.getSalarioBruto(), resultRenta.getCotizado(), false, 0);
+        double base = this.calculateBase(renta.getSalarioBruto(), resultRenta.getCotizado(), renta.isMovilidadGeografica(), 0);
         resultRenta.setBase(base);
 
         // gravamen
@@ -48,7 +46,7 @@ public class ResultService {
         // autonomic cuota
         auxCuotaMap = this.obtainPropertyMap(renta.getComunidadAutonoma().getTaxProperty(), context);
         double cuotaAuto = this.calculateCota(resultRenta.getBase(), auxCuotaMap) - this.calculateCota(renta.getGravamen(), auxCuotaMap);
-        resultRenta.setCuotaEstado(cuotaAuto);
+        resultRenta.setCuotaAuto(cuotaAuto);
         Log.d("ResultService", "CuotaAut: "+cuotaAuto);
         // double tipoEst = resultRenta.getCuotaEstado() / resultRenta.getBase() * 100;
         // double tipoAuto = resultRenta.getCuotaAuto() / resultRenta.getBase() * 100;
@@ -65,7 +63,7 @@ public class ResultService {
         if (renta.getDonaciones() > 0) {
             Map<Double, Double> tramosDonacion = this.obtainTramosDonacion(renta.isMas3Anos(), context);
             double desgravacionByDonation = this.calculateCota(renta.getDonaciones(), tramosDonacion);
-            resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, renta.getDonaciones()));
+            resultRenta.setDeduccionDonacionFinal(this.calculateDonationFinal(desgravacionByDonation, renta.getSalarioBruto()));
             resultRenta.setDonacionEfectiva(this.calculateDonacionEfectiva(renta.getDonaciones(),resultRenta.getDeduccionDonacionFinal()));
         }
 
@@ -85,7 +83,7 @@ public class ResultService {
 
         // result
         resultRenta.setResultado(this.calculateResultado(resultRenta.getCuotaLiquida(), resultRenta.getRetenidoTotal()));
-        resultRenta.setTasaEfectiva(this.calculateTasaEfectiva(resultRenta.getResultado(), resultRenta.getBase()));
+        resultRenta.setTasaRecomendada(this.calculateTasaRecomendada(resultRenta.getCuotaLiquida(), renta.getSalarioBruto()));
 
         // duties
         if(base > ConfigurationHolder.getMinimo()){
@@ -122,10 +120,10 @@ public class ResultService {
      * @return
      */
     private double calculateBase(double salarioBruto, double cotizado, boolean movilidadGeo, double otrosGastosDeducibles) throws MissingMandatoryValuesException {
-this.assertNonNull(salarioBruto, "Gross salary is missing");
-double base = salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
-Log.d("ResultService","Base: "+base);
-return base;
+        this.assertNonNull(salarioBruto, "Gross salary is missing");
+        double base = salarioBruto - cotizado - otrosGastosDeducibles - getValueByGeographicMobility(movilidadGeo);
+        Log.d("ResultService","Base: "+base);
+        return base;
     }
 
     private double getValueByGeographicMobility(boolean movilidadGeo) {
@@ -381,15 +379,15 @@ return base;
     /**
      * Calculates actual tax in percentage
      *
-     * @param resultado
-     * @param base
+     * @param cuotaLiquida
+     * @param salarioBruto
      * @return
      * @throws MissingMandatoryValuesException if basis is invalid
      */
-    private double calculateTasaEfectiva(double resultado, double base) throws MissingMandatoryValuesException {
-        this.assertNonNull(base, "Calculus basis is missing");
-        double tasa = 100 * Math.abs(resultado / base);
-        Log.d("ResultService", "TasaEfectiva: "+tasa);
+    private double calculateTasaRecomendada(double cuotaLiquida, double salarioBruto) throws MissingMandatoryValuesException {
+        this.assertNonNull(salarioBruto, "Gross Salary is missing");
+        double tasa = 100 * Math.abs(cuotaLiquida / salarioBruto);
+        Log.d("ResultService", "TasaRecomendada: "+tasa);
         return tasa;
     }
 

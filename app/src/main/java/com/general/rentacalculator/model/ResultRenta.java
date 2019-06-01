@@ -53,7 +53,7 @@ public class ResultRenta {
     /**
      * Actual tax
      */
-    private double tasaEfectiva;
+    private double tasaRecomendada;
 
     /**
      * Doing declaration is mandatory
@@ -148,12 +148,12 @@ public class ResultRenta {
         this.resultado = resultado;
     }
 
-    public double getTasaEfectiva() {
-        return tasaEfectiva;
+    public double getTasaRecomendada() {
+        return tasaRecomendada;
     }
 
-    public void setTasaEfectiva(double tasaEfectiva) {
-        this.tasaEfectiva = tasaEfectiva;
+    public void setTasaRecomendada(double tasaRecomendada) {
+        this.tasaRecomendada = tasaRecomendada;
     }
 
     public double getCotizado() {

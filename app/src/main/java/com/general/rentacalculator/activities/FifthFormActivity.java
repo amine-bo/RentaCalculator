@@ -9,13 +9,7 @@ import com.general.rentacalculator.R;
 import com.general.rentacalculator.exceptions.MissingMandatoryValuesException;
 import com.general.rentacalculator.model.Renta;
 import com.general.rentacalculator.model.ResultRenta;
-import com.general.rentacalculator.services.ConfigurationHolder;
 import com.general.rentacalculator.services.ResultService;
-
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class FifthFormActivity extends AppCompatActivity {
     private Renta renta;
@@ -64,7 +58,7 @@ public class FifthFormActivity extends AppCompatActivity {
         donacionEfectiva.setText(String.valueOf(resultRenta.getDonacionEfectiva()));
         resultado.setText(String.valueOf(resultRenta.getResultado()));
         tasaReal.setText(String.valueOf(renta.getRetencion()));
-        tasaAplicada.setText(String.valueOf(resultRenta.getTasaEfectiva()));
+        tasaAplicada.setText(String.valueOf(resultRenta.getTasaRecomendada()));
 
         if(resultRenta.getResultado()<0){
             resultadoLetra.setText(R.string.aDevolver);

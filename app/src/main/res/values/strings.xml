@@ -44,8 +44,8 @@
     <string name="retenidoTotal">Retenido Total</string>
     <string name="donacionEfectiva">Donación efectiva</string>
     <string name="resultado">Resultado</string>
-    <string name="tasaReal">Tasa Real</string>
-    <string name="tasaAplicada">Tasa Aplicada</string>
+    <string name="tasaReal">Retención Real</string>
+    <string name="tasaAplicada">Retención Recomendada</string>
     <string name="aDevolver">A RECIBIR</string>
     <string name="aPagar">A PAGAR</string>
     <string name="obligacion_obligatorio">Es obligatorio hacer la declaración de la renta*</string>
